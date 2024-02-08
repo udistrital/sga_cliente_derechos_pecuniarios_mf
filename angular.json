@@ -19,6 +19,7 @@
           "options": {
             "outputPath": "dist/sga-cliente-derechos-pecuniarios-mf",
             "index": "src/index.html",
+            "main": "src/main.single-spa.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -31,12 +32,12 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "main": "src/main.single-spa.ts",
+            "scripts": [
+            ],
             "customWebpackConfig": {
               "path": "extra-webpack.config.js",
               "libraryName": "sga-derechos-pecuniarios-mf",
-              "libraryTarget": "system"
+              "libraryTarget": "umd"
             },
             "deployUrl": "http://localhost:4207/"
           },
@@ -54,37 +55,28 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "none",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.production.ts"
-                }
-              ]
+              "outputHashing": "none"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "outputHashing": "none",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
-                }
-              ]
+              "namedChunks": true,
+              "outputHashing": "none"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "sga-cliente-derechos-pecuniarios-mf:build:production"
+              "browserTarget": "sga-cliente-derechos-pecuniarios-mf:build:production"
             },
             "development": {
-              "buildTarget": "sga-cliente-derechos-pecuniarios-mf:build:development"
+              "browserTarget": "sga-cliente-derechos-pecuniarios-mf:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "sga-cliente-derechos-pecuniarios-mf:build"
+            "browserTarget": "sga-cliente-derechos-pecuniarios-mf:build"
           }
         },
         "test": {
