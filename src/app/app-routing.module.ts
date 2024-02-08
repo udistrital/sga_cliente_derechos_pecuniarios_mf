@@ -1,25 +1,18 @@
 import { APP_BASE_HREF } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ListPeriodoComponent } from "./periodo/list-periodo/list-periodo.component";
-import { CrudPeriodoComponent } from "./periodo/crud-periodo/crud-periodo.component";
+import { EmptyRouteComponent } from "./empty-route/empty-route.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   {
-    path: "list-periodo",
-    component: ListPeriodoComponent
-//    canActivate: [AuthGuard],
-  },
-  {
-    path: "crud-periodo",
-    component: CrudPeriodoComponent
-//    canActivate: [AuthGuard],
+    path: 'empty-route',
+    component: EmptyRouteComponent
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [{ provide: APP_BASE_HREF, useValue: "/periodo/" }],
+  providers: [{ provide: APP_BASE_HREF, useValue: "/derechos-pecuniarios/" }],
 })
 export class AppRoutingModule {}

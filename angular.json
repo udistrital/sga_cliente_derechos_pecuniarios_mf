@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "sga-cliente-derechos-pecuniarios-mf": {
+    "sga-derechos-pecuniarios-mf": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/sga-cliente-derechos-pecuniarios-mf",
+            "outputPath": "dist/sga-derechos-pecuniarios-mf",
             "index": "src/index.html",
             "main": "src/main.single-spa.ts",
             "polyfills": [
@@ -73,10 +73,10 @@
           "builder": "@angular-builders/custom-webpack:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "sga-cliente-derechos-pecuniarios-mf:build:production"
+              "browserTarget": "sga-derechos-pecuniarios-mf:build:production"
             },
             "development": {
-              "browserTarget": "sga-cliente-derechos-pecuniarios-mf:build:development"
+              "browserTarget": "sga-derechos-pecuniarios-mf:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sga-cliente-derechos-pecuniarios-mf:build"
+            "browserTarget": "sga-derechos-pecuniarios-mf:build"
           }
         },
         "test": {

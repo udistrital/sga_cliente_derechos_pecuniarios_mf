@@ -1,0 +1,9 @@
+{
+    "GLOBAL": {
+        "aceptar": "Accept",
+        "atencion": "Atention",
+        "cancelar": "Cancel",
+        "error": "Error",
+        "operacion_exitosa": "Successfull operation"
+    }
+}
