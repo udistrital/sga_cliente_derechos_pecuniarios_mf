@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { catchError, map } from 'rxjs/operators';
-import { HttpErrorManager } from './errorManager'
+import { HttpErrorManager } from './error_manager'
 
 /**
  * This class manage the http connections with internal REST services. Use the response format {
@@ -45,7 +45,7 @@ export class RequestManager {
    * @param params (an Key, Value object with que query params for the request)
    * @returns Observable<any>
    */
-  get(endpoint) {
+  get(endpoint: string) {
 
     return this.http.get<any>(`${this.path}${endpoint}`, this.httpOptions).pipe(
       map(
@@ -67,7 +67,7 @@ export class RequestManager {
    * @param element data to send as JSON
    * @returns Observable<any>
    */
-  post(endpoint, element) {
+  post(endpoint: string, element: any) {
     return this.http.post<any>(`${this.path}${endpoint}`, element, this.httpOptions).pipe(
       catchError(this.errManager.handleError),
     );
@@ -79,7 +79,7 @@ export class RequestManager {
    * @param element data to send as JSON
    * @returns Observable<any>
    */
-  post_file(endpoint, element) {
+  post_file(endpoint: string, element: any) {
     return this.http.post<any>(`${this.path}${endpoint}`, element, {    headers: new HttpHeaders({
       'Content-Type': 'multipart/form-data',
   })}).pipe(
@@ -93,7 +93,7 @@ export class RequestManager {
    * @param element data to send as JSON, With the id to UPDATE
    * @returns Observable<any>
    */
-  put(endpoint, element) {
+  put(endpoint: string, element: any) {
     const path = (element.Id) ? `${this.path}${endpoint}/${element.Id}` : `${this.path}${endpoint}`;
     return this.http.put<any>(path, element, this.httpOptions).pipe(
       catchError(this.errManager.handleError),
@@ -106,7 +106,7 @@ export class RequestManager {
    * @param id element's id for remove
    * @returns Observable<any>
    */
-  delete(endpoint, id) {
+  delete(endpoint: string, id: any) {
     return this.http.delete<any>(`${this.path}${endpoint}/${id}`, this.httpOptions).pipe(
       catchError(this.errManager.handleError),
     );

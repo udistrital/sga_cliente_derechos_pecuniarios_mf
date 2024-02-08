@@ -7,6 +7,10 @@ export const routes: Routes = [
   {
     path: 'empty-route',
     component: EmptyRouteComponent
+  },
+  {
+    path: '',
+    loadChildren: () => import ('./derechos-pecuniarios/derechos-pecuniarios.module').then(m => m.DerechosPecuniariosModule),
   }
 ];
 
