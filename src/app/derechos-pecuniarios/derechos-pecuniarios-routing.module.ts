@@ -6,6 +6,7 @@ import { CrudDerechosPecuniariosComponent } from './crud-derechos-pecuniarios/cr
 import { CopiarConceptosComponent } from './copiar-conceptos/copiar-conceptos.component';
 import { DefinirConceptosComponent } from './definir-conceptos/definir-conceptos.component';
 import { DialogoConceptosComponent } from './dialogo-conceptos/dialogo-conceptos.component';
+import { ListDerechosPecuniariosComponent } from './list-derechos-pecuniarios/list-derechos-pecuniarios.component';
 
 const routes: Routes = [{
     path: '',
@@ -30,6 +31,11 @@ const routes: Routes = [{
             path: 'definir-conceptos',
             component: DefinirConceptosComponent,
 //            canActivate: [AuthGuard],
+        },
+        {
+            path: 'list-derechos-pecuniarios',
+            component: ListDerechosPecuniariosComponent,
+//            canActivate: [AuthGuard],
         }
     ],
 }];
@@ -50,5 +56,6 @@ export const routedComponents = [
     CrudDerechosPecuniariosComponent,
     CopiarConceptosComponent,
     DefinirConceptosComponent,
-    DialogoConceptosComponent
+    DialogoConceptosComponent,
+    ListDerechosPecuniariosComponent
 ]

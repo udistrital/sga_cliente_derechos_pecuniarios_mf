@@ -15,7 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
 @Component({
-  selector: 'ngx-definir-conceptos',
+  selector: 'definir-conceptos',
   templateUrl: './definir-conceptos.component.html',
   styleUrls: ['../derechos-pecuniarios.component.scss'],
 })

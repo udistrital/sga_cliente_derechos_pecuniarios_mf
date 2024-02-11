@@ -17,6 +17,10 @@ import { CustomMatPaginatorIntl } from '../utils/custom-mat-paginator-intl';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CrudDerechosPecuniariosComponent } from './crud-derechos-pecuniarios/crud-derechos-pecuniarios.component';
+import { ListDerechosPecuniariosComponent } from './list-derechos-pecuniarios/list-derechos-pecuniarios.component';
+import { CopiarConceptosComponent } from './copiar-conceptos/copiar-conceptos.component';
+import { DefinirConceptosComponent } from './definir-conceptos/definir-conceptos.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,10 @@ import { MatInputModule } from '@angular/material/input';
   exports: [
     DerechosPecuniariosComponent,
     ConsultarConceptosComponent,
+    CrudDerechosPecuniariosComponent,
+    ListDerechosPecuniariosComponent,
+    CopiarConceptosComponent,
+    DefinirConceptosComponent,
   ],
   providers: [
     PopUpManager,
