@@ -9,7 +9,12 @@
         "siguiente": "Siguiente",
         "previa": "Anterior",
         "primera": "Primer página",
-        "ultima": "Última página"
+        "ultima": "Última página",
+        "acciones": "Acciones",
+        "guardar": "Guardar",
+        "regresar": "Regresar",
+        "buscar": "Buscar",
+        "nombre": "Nombre"
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",

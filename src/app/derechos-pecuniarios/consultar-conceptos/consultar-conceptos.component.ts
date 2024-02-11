@@ -17,6 +17,7 @@ export class ConsultarConceptosComponent implements OnInit {
 
   vigencias: any[];
   vigenciaActual: number;
+  mostrarTabla: boolean = false;
 
   dataSource: MatTableDataSource<Concepto>;
 
@@ -49,9 +50,10 @@ export class ConsultarConceptosComponent implements OnInit {
     );
   }
 
-  cargarDatos(event) {
+  cargarDatos(event: any) {
     this.vigenciaActual = event.value;
     let datosCargados = [];
+    this.mostrarTabla = false;
     this.sgaMidService.get('derechos_pecuniarios/' + this.vigenciaActual).subscribe(
       response => {
         var data: any[] = response.Data;
@@ -72,6 +74,7 @@ export class ConsultarConceptosComponent implements OnInit {
           this.dataSource = new MatTableDataSource(datosCargados);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          this.mostrarTabla = datosCargados.length > 0;
         } else {
           this.popUpManager.showAlert('info', this.translate.instant('derechos_pecuniarios.no_conceptos'));
         }
@@ -83,7 +86,7 @@ export class ConsultarConceptosComponent implements OnInit {
   }
 
   formatearPrecio(precio: number): string {
-    return precio.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
+    return precio != null ? precio.toLocaleString('es-CO', {style: 'currency', currency: 'COP'}) : "";
   }
 
 }

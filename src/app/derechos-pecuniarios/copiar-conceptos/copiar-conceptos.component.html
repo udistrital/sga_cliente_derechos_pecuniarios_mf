@@ -6,18 +6,22 @@
           {{ 'derechos_pecuniarios.titulo' | translate }}
         </legend>
         <mat-card-content>
+          <p>{{ 'derechos_pecuniarios.forma_vigencia' | translate }} </p>
           <div class="row">
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-6">
               <mat-form-field style="width: 100%;">
-                <mat-select placeholder="{{ 'derechos_pecuniarios.vigencia' | translate }}" (selectionChange)="cargarDatos($event)" >
+                <mat-select [formControl]="vigenciaElegida" placeholder="{{ 'derechos_pecuniarios.vigencia' | translate }}" (selectionChange)="cambiarVigencia()">
                   <mat-option *ngFor="let vigencia of vigencias" [value]="vigencia.Id">{{ vigencia.Nombre }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
+            <div class="col-12 col-md-6">
+              <button mat-button type="button" (click)="copiarConceptos()" >{{ 'derechos_pecuniarios.boton_copiar' | translate }} </button>
+            </div>
           </div>
         </mat-card-content>
-        <mat-card-title [hidden]="vigenciaActual == null || !mostrarTabla">{{ 'derechos_pecuniarios.conceptos' | translate }}</mat-card-title>
-        <mat-card-content [hidden]="vigenciaActual == null || !mostrarTabla">
+        <mat-card-title>{{ 'derechos_pecuniarios.conceptos' | translate }}</mat-card-title>
+        <mat-card-content>
           <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
             <ng-container *ngFor="let columna of displayedColumns" [matColumnDef]="columna">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ nombresColumnas[columna] | translate }}</th>
@@ -26,12 +30,8 @@
                   (mouseover)="hoverIndex = i"
                   (mouseout)="hoverIndex = null">
 
-                  <ng-container *ngIf="columna != 'Costo'">
+                  <ng-container>
                       {{ fila[columna] }}
-                  </ng-container>
-
-                  <ng-container *ngIf="columna == 'Costo'">
-                    {{ formatearPrecio(fila[columna]) }}
                   </ng-container>
               </td>
             </ng-container>

@@ -9,7 +9,12 @@
         "siguiente": "Next",
         "previa": "Previos",
         "primera": "First page",
-        "ultima": "Last page"
+        "ultima": "Last page",
+        "acciones": "Actions",
+        "guardar": "Save",
+        "regresar": "Return",
+        "buscar": "Search",
+        "nombre": "Name"
     },
     "ERROR": {
         "general": "The request could not be satisfied",
