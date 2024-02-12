@@ -16,6 +16,7 @@
             </div>
           </div>
         </mat-card-content>
+        <mat-progress-spinner *ngIf="cargando" mode="indeterminate"></mat-progress-spinner>
         <mat-card-title [hidden]="vigenciaActual == null || !mostrarTabla">{{ 'derechos_pecuniarios.conceptos' | translate }}</mat-card-title>
         <mat-card-content [hidden]="vigenciaActual == null || !mostrarTabla">
           <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">

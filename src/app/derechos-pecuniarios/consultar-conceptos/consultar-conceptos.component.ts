@@ -18,6 +18,7 @@ export class ConsultarConceptosComponent implements OnInit {
   vigencias: any[];
   vigenciaActual: number;
   mostrarTabla: boolean = false;
+  cargando: boolean = false;
 
   dataSource: MatTableDataSource<Concepto>;
 
@@ -51,6 +52,7 @@ export class ConsultarConceptosComponent implements OnInit {
   }
 
   cargarDatos(event: any) {
+    this.cargando = true;
     this.vigenciaActual = event.value;
     let datosCargados = [];
     this.mostrarTabla = false;
@@ -83,6 +85,7 @@ export class ConsultarConceptosComponent implements OnInit {
         this.popUpManager.showErrorAlert(this.translate.instant('ERROR.general'));
       },
     );
+    this.cargando = false;
   }
 
   formatearPrecio(precio: number): string {

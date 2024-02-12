@@ -5,7 +5,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -24,9 +24,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { EmptyRouteComponent } from './empty-route/empty-route.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, environment.apiUrl+'assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, environment.apiUrl + 'assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -51,7 +52,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatDatepickerModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
-    MatTableModule, 
+    MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
     CommonModule,
@@ -68,7 +69,25 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
   ],
-  exports:[
+  exports: [
+    MatDialogModule,
+    MatButtonModule,
+    MatCardModule,
+    MatPseudoCheckboxModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatTooltipModule,
     MatDialogModule,
   ],
   providers: [
