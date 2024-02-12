@@ -14,7 +14,9 @@
         "guardar": "Save",
         "regresar": "Return",
         "buscar": "Search",
-        "nombre": "Name"
+        "nombre": "Name",
+        "editar": "Edit",
+        "eliminar": "Delete"
     },
     "ERROR": {
         "general": "The request could not be satisfied",

@@ -14,7 +14,9 @@
         "guardar": "Guardar",
         "regresar": "Regresar",
         "buscar": "Buscar",
-        "nombre": "Nombre"
+        "nombre": "Nombre",
+        "editar": "Editar",
+        "eliminar": "Eliminar"
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
