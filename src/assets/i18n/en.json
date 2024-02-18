@@ -36,6 +36,7 @@
     "derechos_pecuniarios": {
         "titulo": "Financial entitlements",
         "periodo": "Period",
+        "id": "Id",
         "concepto": "Concept",
         "pago": "Payment",
         "fecha_generacion": "Generation date",

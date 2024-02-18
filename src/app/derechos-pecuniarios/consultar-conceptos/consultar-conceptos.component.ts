@@ -92,4 +92,10 @@ export class ConsultarConceptosComponent implements OnInit {
     return precio != null ? precio.toLocaleString('es-CO', {style: 'currency', currency: 'COP'}) : "";
   }
 
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
 }

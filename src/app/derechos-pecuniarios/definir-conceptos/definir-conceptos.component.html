@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col">
+<div fxLayout="row">
+  <div fxFlex>
     <mat-card>
       <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
 
@@ -8,27 +8,29 @@
           {{ 'derechos_pecuniarios.titulo' | translate }}
         </legend>
         <mat-card-content>
-          <div class="row">
-            <div class="col-12 col-md-4">
-              <mat-form-field style="width: 100%;">
+          <div fxLayout="row">
+            <div fxFlex="40">
+              <mat-form-field style="width: 90%;">
+                <mat-label>{{ 'derechos_pecuniarios.vigencia' | translate }}</mat-label>
                 <mat-select [formControl]="vigenciaActual" placeholder="{{ 'derechos_pecuniarios.vigencia' | translate }}" (selectionChange)="cargarSalario()" >
                   <mat-option *ngFor="let vigencia of vigencias" [value]="vigencia.Id">{{ vigencia.Nombre }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <div class="col-12 col-md-6">
-              <mat-form-field style="width: 100%;">
+            <div fxFlex="40">
+              <mat-form-field style="width: 90%;">
+                <mat-label>{{ 'derechos_pecuniarios.salario' | translate }}</mat-label>
                 <input matInput type="text" [(ngModel)]="salario" placeholder="{{ 'derechos_pecuniarios.salario' | translate }}" readonly>
               </mat-form-field>
             </div>
-            <div *ngIf="mostrarCalcular" class="col-12 col-md-2">
-              <button mat-button type="button" color="primary" class="btn btn-info" (click)="calcularValores()" >{{ 'derechos_pecuniarios.boton_calcular' | translate }} </button>
+            <div *ngIf="mostrarCalcular" fxFlex>
+              <button mat-button type="button" color="primary" class="boton-info" (click)="calcularValores()" >{{ 'derechos_pecuniarios.boton_calcular' | translate }} </button>
             </div>
           </div>
         </mat-card-content>
         <mat-card-title [hidden]="vigenciaActual == null || !mostrarTabla">{{ 'derechos_pecuniarios.conceptos' | translate }}</mat-card-title>
         <mat-card-content [hidden]="vigenciaActual == null || !mostrarTabla">
-          <div>
+          <div class="float-right">
             <mat-form-field>
                 <mat-label>{{ "GLOBAL.buscar" | translate }}</mat-label>
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{ 'GLOBAL.buscar' | translate }}">
@@ -37,7 +39,7 @@
               <mat-icon class="add-icon">add</mat-icon>
           </button>
           </div>
-          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
             <ng-container *ngFor="let columna of displayedColumns" [matColumnDef]="columna">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ nombresColumnas[columna] | translate }}</th>
               <td mat-cell *matCellDef="let fila; let i = index"
@@ -74,7 +76,7 @@
             showFirstLastButtons></mat-paginator>
         </mat-card-content>
         <div *ngIf="mostrarCalcular" class="text-center">
-          <button mat-button type="button" (click)="guardarValores()" [disabled]="!guardable" >{{ 'derechos_pecuniarios.boton_guardar' | translate }} </button>
+          <button mat-button type="button" color="primary" class="boton-info" (click)="guardarValores()" [disabled]="!guardable" >{{ 'derechos_pecuniarios.boton_guardar' | translate }} </button>
         </div>
       </fieldset>
     </mat-card>

@@ -47,6 +47,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { MatTableModule } from '@angular/material/table';
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
     DerechosPecuniariosRoutingComponent,
   ],
   exports: [
