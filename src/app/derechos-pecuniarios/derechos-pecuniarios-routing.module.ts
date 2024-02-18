@@ -7,6 +7,7 @@ import { CopiarConceptosComponent } from './copiar-conceptos/copiar-conceptos.co
 import { DefinirConceptosComponent } from './definir-conceptos/definir-conceptos.component';
 import { DialogoConceptosComponent } from './dialogo-conceptos/dialogo-conceptos.component';
 import { ListDerechosPecuniariosComponent } from './list-derechos-pecuniarios/list-derechos-pecuniarios.component';
+import { AuthGuard } from '../_guards/auth.guard';
 
 const routes: Routes = [{
     path: '',
