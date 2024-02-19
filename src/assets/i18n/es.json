@@ -23,7 +23,8 @@
         "placeholder_observacion": "Ej: El documento no ha sido aprobado por tal motivo...",
         "placeholder_soporte_documento": "Soporte de documento",
         "info_persona": "Información personal",
-        "cargar": "Cargar"
+        "cargar": "Cargar",
+        "documento_identificacion": "Documento de identificación"
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
