@@ -35,11 +35,12 @@ export class PopUpManager {
         });
     }
 
-    public showErrorAlert(text: string): void {
+    public showErrorAlert(text: string, footer: string = null): void {
         Swal.fire({
             icon: 'error',
             title: this.translate.instant('GLOBAL.error'),
             text: text,
+            footer: footer,
             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
             confirmButtonColor: this.confirmColor,
         });

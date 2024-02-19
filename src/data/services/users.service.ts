@@ -1,9 +1,8 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from './../../../environments/environment';
-import { ImplicitAutenticationService } from '../utils/implicit_autentication.service';
+import { environment } from 'src/environments/environment';
 import { AnyService } from './any.service';
+import { ImplicitAutenticationService } from './implicit_autentication.service';
 
 const path = environment.TERCEROS_SERVICE;
 
