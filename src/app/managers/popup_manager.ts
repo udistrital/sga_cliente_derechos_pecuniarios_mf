@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import Swal, { SweetAlertIcon, SweetAlertOptions } from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Injectable({
     providedIn: 'root',
 })
 export class PopUpManager {
-    constructor(private translate: TranslateService) { }
+    constructor(private translate: TranslateService,
+        private _snackBar: MatSnackBar) { }
 
     confirmColor: string = '#3085d6';
     cancelColor: string = '#aaa';
@@ -40,6 +43,10 @@ export class PopUpManager {
             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
             confirmButtonColor: this.confirmColor,
         });
+    }
+
+    public showErrorToast(message: string, action: any = null): void {
+        this._snackBar.open(message, action);
     }
 
     public showConfirmAlert(text: string, title = this.translate.instant('GLOBAL.atencion')): Promise<any> {

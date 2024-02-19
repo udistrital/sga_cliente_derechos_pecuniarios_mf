@@ -36,3 +36,8 @@ fieldset {
   background-color: #00a2ff !important;
   color: white !important;
 }
+
+.boton-info[disabled] {
+    background-color: #007bc2 !important;
+    color: #ddd !important;
+}
