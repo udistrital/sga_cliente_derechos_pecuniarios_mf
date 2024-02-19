@@ -25,6 +25,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { EmptyRouteComponent } from './empty-route/empty-route.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DialogoDocumentosComponent } from './dialogo-documentos/dialogo-documentos.component';
+import { CustomizeButtonComponent } from './customize-button/customize-button.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.apiUrl + 'assets/i18n/', '.json');
@@ -33,7 +35,9 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    EmptyRouteComponent
+    EmptyRouteComponent,
+    DialogoDocumentosComponent,
+    CustomizeButtonComponent
   ],
   imports: [
     MatTabsModule,

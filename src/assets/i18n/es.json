@@ -16,7 +16,12 @@
         "buscar": "Buscar",
         "nombre": "Nombre",
         "editar": "Editar",
-        "eliminar": "Eliminar"
+        "eliminar": "Eliminar",
+        "soporte_documento": "Documento de soporte",
+        "estado": "Estado",
+        "observacion": "Observaciones",
+        "placeholder_observacion": "Ej: El documento no ha sido aprobado por tal motivo...",
+        "placeholder_soporte_documento": "Soporte de documento"
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
@@ -114,5 +119,9 @@
         "solicitud_generada": "La solicitud se ha generado con éxito.",
         "error_solicitud_generada": "La solicitud no pudo ser generada.",
         "error_respuesta_solicitud": "No fue posible dar respuesta a la solicitud."
+    },
+    "admision": {
+        "revisar_docs": "Revisión de documentos",
+        "btn_doc_No_aprobar": "Rechazar documento"
     }
 }

@@ -16,7 +16,12 @@
         "buscar": "Search",
         "nombre": "Name",
         "editar": "Edit",
-        "eliminar": "Delete"
+        "eliminar": "Delete",
+        "soporte_documento": "Support document",
+        "estado": "State",
+        "observacion": "Observations",
+        "placeholder_observacion": "E.g: The document has not been approved for this reason...",
+        "placeholder_soporte_documento": "Support document"
     },
     "ERROR": {
         "general": "The request could not be satisfied",
@@ -114,5 +119,9 @@
         "solicitud_generada": "The request has been generated successfully.",
         "error_solicitud_generada": "Request could not be generated.",
         "error_respuesta_solicitud": "It was not possible to respond to the request."
+    },
+    "admision": {
+        "revisar_docs": "Review documents",
+        "btn_doc_No_aprobar": "Reject document"
     }
 }
