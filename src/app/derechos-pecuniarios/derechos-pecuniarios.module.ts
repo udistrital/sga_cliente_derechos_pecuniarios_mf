@@ -51,6 +51,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { GeneracionRecibosDerechosPecuniarios } from './generacion-recibos-derechos-pecuniarios/generacion-recibos-derechos-pecuniarios.component';
 import { DocumentoService } from 'src/data/services/documento.service';
 import { NewNuxeoService } from 'src/data/services/new_nuxeo.service';
+import { ConsultarSolicitudesDerechosPecuniarios } from './consultar-solicitudes/consultar-solicitudes.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { NewNuxeoService } from 'src/data/services/new_nuxeo.service';
     ListDerechosPecuniariosComponent,
     CopiarConceptosComponent,
     DefinirConceptosComponent,
-    GeneracionRecibosDerechosPecuniarios
+    GeneracionRecibosDerechosPecuniarios,
+    ConsultarSolicitudesDerechosPecuniarios
   ],
   providers: [
     PopUpManager,

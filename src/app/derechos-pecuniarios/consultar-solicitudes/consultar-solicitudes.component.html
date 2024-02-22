@@ -1,0 +1,175 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            {{ 'derechos_pecuniarios.lista_solicitudes_derechos_pecuniarios' | translate }}
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <br>
+        <fieldset [ngClass]="{'fieldseter':true} " *ngIf="!gestion">
+            <legend> {{ 'derechos_pecuniarios.resumen_solicitudes' | translate }} </legend>
+            <div *ngIf="!new_pecuniario" style="overflow: auto;">
+                <table mat-table [dataSource]="dataSource" matSort>
+                    <ng-container *ngFor="let columna of displayedColumns" [matColumnDef]="columna">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ nombresColumnas[columna] | translate }}</th>
+                        <td mat-cell *matCellDef="let fila; let i = index"
+                            [ngClass]="{'row-par': i % 2 === 0, 'row-impar': i % 2 !== 0, 'row-hover': hoverIndex === i}"
+                            (mouseover)="hoverIndex = i"
+                            (mouseout)="hoverIndex = null">
+                            <ng-container *ngIf="!actionsColumns.includes(columna)">
+                                {{ fila[columna] }}
+                            </ng-container>
+
+                            <ng-container *ngIf="actionsColumns.includes(columna) && columna=='VerSoporte'">
+                                <button mat-icon-button [matTooltip]=fila[columna]?.label (click)="descargar(fila)">
+                                    <mat-icon [class]=fila[columna]?.class>{{ fila[columna]?.icon }}</mat-icon>
+                                </button>
+                            </ng-container>
+
+                            <ng-container *ngIf="actionsColumns.includes(columna) && columna=='Gestionar'">
+                                <button mat-icon-button [matTooltip]=fila[columna]?.label (click)="gestionar(fila)">
+                                    <mat-icon [class]=fila[columna]?.class>{{ fila[columna]?.icon }}</mat-icon>
+                                </button>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let fila; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator
+                  [pageSize]="5"
+                  [pageSizeOptions]="[]"
+                  showFirstLastButtons></mat-paginator>
+            </div>
+        </fieldset>
+        <fieldset [ngClass]="{'fieldseter':true} " *ngIf="gestion">
+            <legend> {{ 'derechos_pecuniarios.descripcion_solicitud' | translate }} </legend>
+            <div class="row">
+                <div class="col-3">
+                    <label for="">{{'derechos_pecuniarios.fecha_generacion' | translate}}</label>
+                </div>
+                <div class="col-9">
+                    <span class="form-control">
+                        {{solicitudData.FechaCreacion}}
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3">
+                    <label for="">{{'derechos_pecuniarios.codigo' | translate}}</label>
+                </div>
+                <div class="col-9">
+                    <span class="form-control">
+                        {{solicitudData.Codigo}}
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3">
+                    <label for="">{{'GLOBAL.nombre' | translate}}</label>
+                </div>
+                <div class="col-9">
+                    <span class="form-control">
+                        {{solicitudData.Nombre}}
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3">
+                    <label for="">{{'derechos_pecuniarios.identificacion' | translate}}</label>
+                </div>
+                <div class="col-9">
+                    <span class="form-control">
+                        {{solicitudData.Identificacion}}
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3">
+                    <label for="">{{'derechos_pecuniarios.concepto_recibo' | translate}}</label>
+                </div>
+                <div class="col-9">
+                    <span class="form-control">
+                        {{solicitudData.Concepto}}
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3">
+                    <label for="">{{'derechos_pecuniarios.valor' | translate}}</label>
+                </div>
+                <div class="col-9">
+                    <span class="form-control">
+                        {{formatterPeso.format(solicitudData.Valor)}}
+                    </span>
+                </div>
+            </div>
+        </fieldset>
+        <br>
+        <fieldset [ngClass]="{'fieldseter':true} " *ngIf="gestion">
+            <legend> {{ 'derechos_pecuniarios.respuesta_dada_por' | translate }} </legend>
+            <div class="row">
+                <div class="col-3">
+                    <label for="">{{'GLOBAL.nombre' | translate}}</label>
+                </div>
+                <div class="col-9">
+                    <span class="form-control">
+                        {{userResponse.NombreCompleto}}
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3">
+                    <label for="">{{'GLOBAL.rol' | translate}}</label>
+                </div>
+                <div class="col-9">
+                    <span class="form-control">
+                        {{userResponse.Rol}}
+                    </span>
+                </div>
+            </div>
+            <br>
+        </fieldset>
+        <br>
+        <fieldset [ngClass]="{'fieldseter':true} " *ngIf="gestion">
+            <form novalidate [formGroup]="formGestion" (ngSubmit)="enviarSolicitud()">
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>{{ "GLOBAL.observacion" | translate }}</mat-label>
+                            <textarea matInput formControlName="observacion"  placeholder="{{ 'GLOBAL.observacion' | translate }}" required></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <label for="">{{'GLOBAL.adjuntar' | translate}}</label>
+                        <br><br>
+                        <input type="file" accept=".pdf" (change)="archivoSeleccionado($event)" required>
+                    </div>
+                </div>
+                <br>
+                <div class="text-center" *ngIf="gestion">
+                    <button mat-button type="submit" color="primary" class="boton-primary">
+                        {{ 'derechos_pecuniarios.enviar_respuesta' | translate }}
+                    </button>
+                </div>
+            </form>
+            <br><br>
+        </fieldset>
+        <br>
+    </mat-card-content>
+    <mat-card-footer>
+        <div class="text-center" *ngIf="gestion">
+            <button mat-button type="button" color="primary" class="boton-primary" (click)="gestion = false">
+                {{ 'GLOBAL.cancelar' | translate }}
+            </button>
+        </div>
+    </mat-card-footer>
+</mat-card>

@@ -1,5 +1,6 @@
 {
     "GLOBAL": {
+        "rol": "Role",
         "aceptar": "Accept",
         "atencion": "Atention",
         "cancelar": "Cancel",
@@ -21,7 +22,9 @@
         "estado": "State",
         "observacion": "Observations",
         "placeholder_observacion": "E.g: The document has not been approved for this reason...",
-        "placeholder_soporte_documento": "Support document"
+        "placeholder_soporte_documento": "Support document",
+        "adjuntar": "Attach",
+        "info_estado": "Registration Status"
     },
     "ERROR": {
         "general": "The request could not be satisfied",
@@ -118,7 +121,8 @@
         "pago_ya_adjuntado": "Payment was previously enclosed.",
         "solicitud_generada": "The request has been generated successfully.",
         "error_solicitud_generada": "Request could not be generated.",
-        "error_respuesta_solicitud": "It was not possible to respond to the request."
+        "error_respuesta_solicitud": "It was not possible to respond to the request.",
+        "enviar_respuesta": "Send response"
     },
     "admision": {
         "revisar_docs": "Review documents",

@@ -243,7 +243,7 @@ export class NewNuxeoService {
         const documentsSubject = new Subject<Documento[]>();
         const documents$ = documentsSubject.asObservable();
         let documento = null;
-        this.anyService.get(environment.NUXEO_SERVICE, '/document/' + uuid)
+        this.anyService.geth(environment.NUXEO_SERVICE, '/document/' + uuid)
             .subscribe(async (f: any) => {
                 const url = await this.getUrlFile(f.file, f['file:content']['mime-type']);
                 documento = url
