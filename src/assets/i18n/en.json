@@ -24,7 +24,9 @@
         "placeholder_observacion": "E.g: The document has not been approved for this reason...",
         "placeholder_soporte_documento": "Support document",
         "adjuntar": "Attach",
-        "info_estado": "Registration Status"
+        "info_estado": "Registration Status",
+        "cerrar_visualizador": "Close viewer",
+        "click_aqui": "Click here"
     },
     "ERROR": {
         "general": "The request could not be satisfied",

@@ -148,10 +148,18 @@
                             <textarea matInput formControlName="observacion"  placeholder="{{ 'GLOBAL.observacion' | translate }}" required></textarea>
                         </mat-form-field>
                     </div>
-                    <div class="col-12">
+                </div>
+                <div class="row">
+                    <div class="col-9">
                         <label for="">{{'GLOBAL.adjuntar' | translate}}</label>
                         <br><br>
                         <input type="file" accept=".pdf" (change)="archivoSeleccionado($event)" required>
+                    </div>
+                    <div class="col-3" *ngIf="url_temp != null">
+                        <div class="ver-documento" (click)="preview(url_temp, file.name)">
+                            <mat-icon class="icon-primary">download</mat-icon>
+                            <span>{{'GLOBAL.click_aqui' | translate}}</span>
+                        </div>
                     </div>
                 </div>
                 <br>

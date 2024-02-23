@@ -12,6 +12,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DocumentoService } from 'src/data/services/documento.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogPreviewFileComponent } from 'src/app/dialog-preview-file/dialog-preview-file.component';
 
 @Component({
   selector: 'consultar-solicitudes',
@@ -53,6 +55,7 @@ export class ConsultarSolicitudesDerechosPecuniarios {
 
   formGestion: FormGroup;
   file: any;
+  url_temp: any;
 
   constructor(
     private userService: UserService,
@@ -62,7 +65,8 @@ export class ConsultarSolicitudesDerechosPecuniarios {
     private sgaMidService: SgaMidService,
     private translate: TranslateService,
     private documentoService: DocumentoService,
-    private builder: FormBuilder) {
+    private builder: FormBuilder,
+    private matDialog: MatDialog) {
     this.nombresColumnas["Id"] = "derechos_pecuniarios.id";
     this.nombresColumnas["FechaCreacion"] = "derechos_pecuniarios.fecha_generacion";
     this.nombresColumnas["Codigo"] = "derechos_pecuniarios.codigo";
@@ -247,12 +251,21 @@ export class ConsultarSolicitudesDerechosPecuniarios {
       'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
   }
 
+  preview(url, title, message?) {
+    const dialogDoc = new MatDialogConfig();
+    dialogDoc.width = '80vw';
+    dialogDoc.height = '90vh';
+    dialogDoc.data = {url, title, message};
+    this.matDialog.open(DialogPreviewFileComponent, dialogDoc);
+  }
+
   sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   archivoSeleccionado(event: any) {
     this.file = event.target.files != null ? event.target.files[0] : null;
+    this.url_temp = this.file != null ? URL.createObjectURL(this.file) : null;
   }
 
 }

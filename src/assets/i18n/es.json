@@ -27,7 +27,9 @@
         "cargar": "Cargar",
         "documento_identificacion": "Documento de identificación",
         "adjuntar": "Adjuntar",
-        "info_estado": "Estado de inscripción"
+        "info_estado": "Estado de inscripción",
+        "cerrar_visualizador": "Cerrar visualizador",
+        "click_aqui": "Click aquí"
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
