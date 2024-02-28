@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col">
+    <mat-card>
+      <fieldset [ngClass]="{'fieldseter':true} ">
+        <legend>
+          {{ 'derechos_pecuniarios.titulo' | translate }}
+        </legend>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-12 col-md-4">
+              <mat-form-field style="width: 100%;">
+                <mat-select placeholder="{{ 'derechos_pecuniarios.vigencia' | translate }}" (selectionChange)="cargarDatos($event)" >
+                  <mat-option *ngFor="let vigencia of vigencias" [value]="vigencia.Id">{{ vigencia.Nombre }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-progress-spinner *ngIf="cargando" mode="indeterminate"></mat-progress-spinner>
+        <mat-card-title [hidden]="vigenciaActual == null || !mostrarTabla">{{ 'derechos_pecuniarios.conceptos' | translate }}</mat-card-title>
+        <mat-card-content [hidden]="vigenciaActual == null || !mostrarTabla">
+          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <ng-container *ngFor="let columna of displayedColumns" [matColumnDef]="columna">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ nombresColumnas[columna] | translate }}</th>
+              <td mat-cell *matCellDef="let fila; let i = index"
+                  [ngClass]="{'row-par': i % 2 === 0, 'row-impar': i % 2 !== 0, 'row-hover': hoverIndex === i}"
+                  (mouseover)="hoverIndex = i"
+                  (mouseout)="hoverIndex = null">
+
+                  <ng-container *ngIf="columna != 'Costo'">
+                      {{ fila[columna] }}
+                  </ng-container>
+
+                  <ng-container *ngIf="columna == 'Costo'">
+                    {{ formatearPrecio(fila[columna]) }}
+                  </ng-container>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let fila; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator
+            [pageSize]="5"
+            [pageSizeOptions]="[]"
+            showFirstLastButtons></mat-paginator>
+        </mat-card-content>
+      </fieldset>
+    </mat-card>
+  </div>
+</div>
