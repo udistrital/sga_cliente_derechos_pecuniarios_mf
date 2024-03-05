@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col">
+<div fxLayout="row">
+  <div fxFlex>
     <mat-card>
       <fieldset [ngClass]="{'fieldseter':true} ">
         <legend>
@@ -7,12 +7,12 @@
         </legend>
         <mat-card-content>
           <p>{{ 'derechos_pecuniarios.forma' | translate }} </p>
-          <div class="row">
-            <div class="col-12 col-md-6 text-center">
-              <button mat-button type="button" color="primary" class="btn btn-info" (click)="copiarDerechos()" >{{ 'derechos_pecuniarios.copiar' | translate }} </button>
+          <div fxLayout="row">
+            <div fxFlex="50" class="text-center">
+              <button mat-button type="button" color="primary" class="boton-info" (click)="copiarDerechos()" >{{ 'derechos_pecuniarios.copiar' | translate }} </button>
             </div>
-            <div class="col-12 col-md-6 text-center">
-              <button mat-button type="button" color="primary" class="btn btn-info" (click)="definirDerechos()" >{{ 'derechos_pecuniarios.definir' | translate }} </button>
+            <div fxFlex="50" class="text-center">
+              <button mat-button type="button" color="primary" class="boton-info" (click)="definirDerechos()" >{{ 'derechos_pecuniarios.definir' | translate }} </button>
             </div>
           </div>
         </mat-card-content>

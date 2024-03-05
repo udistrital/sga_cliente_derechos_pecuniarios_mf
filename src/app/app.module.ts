@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { EmptyRouteComponent } from './empty-route/empty-route.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DialogoDocumentosComponent } from './dialogo-documentos/dialogo-documentos.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.apiUrl + 'assets/i18n/', '.json');
@@ -33,7 +34,8 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    EmptyRouteComponent
+    EmptyRouteComponent,
+    DialogoDocumentosComponent
   ],
   imports: [
     MatTabsModule,
@@ -49,18 +51,14 @@ export function createTranslateLoader(http: HttpClient) {
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatDatepickerModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
     CommonModule,
-    MatTableModule,
     MatSortModule,
-    MatButtonModule,
     MatSelectModule,
-    MatIconModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -75,7 +73,6 @@ export function createTranslateLoader(http: HttpClient) {
     MatCardModule,
     MatPseudoCheckboxModule,
     MatDatepickerModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -88,7 +85,6 @@ export function createTranslateLoader(http: HttpClient) {
     MatTableModule,
     MatTabsModule,
     MatTooltipModule,
-    MatDialogModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

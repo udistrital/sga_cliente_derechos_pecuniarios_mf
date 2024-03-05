@@ -39,7 +39,7 @@
               "libraryName": "sga-derechos-pecuniarios-mf",
               "libraryTarget": "umd"
             },
-            "deployUrl": "http://localhost:4207/"
+            "deployUrl": "http://localhost:4208/"
           },
           "configurations": {
             "production": {

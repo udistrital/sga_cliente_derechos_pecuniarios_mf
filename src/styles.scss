@@ -9,3 +9,39 @@ derechos-pecuniarios {
 fieldset {
   margin: 1%;
 }
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background: none !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: white;
+}
+
+.tab-bold .mat-tab-label {
+  font-weight: bold;
+}
+
+.boton-primary {
+  background-color: #03678F !important;
+  color: white !important;
+}
+
+.boton-secondary {
+  background-color: #d9534f !important;
+  color: white !important;
+}
+
+.boton-info {
+  background-color: #00a2ff !important;
+  color: white !important;
+}
+
+.boton-info[disabled] {
+    background-color: #007bc2 !important;
+    color: #ddd !important;
+}
+
+.icon-primary {
+  color: #03678F !important;
+}

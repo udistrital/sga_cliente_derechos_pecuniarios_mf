@@ -39,7 +39,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  displayedColumns: string[] = ['Codigo', 'Nombre', 'Factor', 'Costo', 'acciones'];
+  displayedColumns: string[] = ['Id', 'Codigo', 'Nombre', 'Factor', 'Costo', 'acciones'];
   nombresColumnas = [];
 
   mostrarTabla: boolean = false;
@@ -53,6 +53,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
     private activatedRoute: ActivatedRoute,
   ) {
     this.vigenciaActual = new FormControl('');
+    this.nombresColumnas["Id"] = "derechos_pecuniarios.id";
     this.nombresColumnas["Codigo"] = "derechos_pecuniarios.codigo";
     this.nombresColumnas["Nombre"] = "derechos_pecuniarios.nombre";
     this.nombresColumnas["Factor"] = "derechos_pecuniarios.factor";

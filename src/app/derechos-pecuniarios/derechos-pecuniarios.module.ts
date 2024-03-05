@@ -47,6 +47,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { GeneracionRecibosDerechosPecuniarios } from './generacion-recibos-derechos-pecuniarios/generacion-recibos-derechos-pecuniarios.component';
+import { DocumentoService } from 'src/data/services/documento.service';
+import { NewNuxeoService } from 'src/data/services/new_nuxeo.service';
 
 @NgModule({
   declarations: [
@@ -91,6 +95,7 @@ import { MatTableModule } from '@angular/material/table';
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
     DerechosPecuniariosRoutingComponent,
   ],
   exports: [
@@ -100,11 +105,14 @@ import { MatTableModule } from '@angular/material/table';
     ListDerechosPecuniariosComponent,
     CopiarConceptosComponent,
     DefinirConceptosComponent,
+    GeneracionRecibosDerechosPecuniarios
   ],
   providers: [
     PopUpManager,
     ParametrosService,
     SgaMidService,
+    NewNuxeoService,
+    DocumentoService,
     {
       provide: MatPaginatorIntl,
       useClass: CustomMatPaginatorIntl

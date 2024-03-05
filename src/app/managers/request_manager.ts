@@ -21,14 +21,13 @@ export class RequestManager {
     const acces_token = window.localStorage.getItem('access_token');
     if (acces_token !== null) {
       this.httpOptions = {
-        // headers: new HttpHeaders({
-        //   'Content-Type': 'application/json',
-        //   'Authorization': `Bearer ${acces_token}`,
-        // }),
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${acces_token}`,
+        }),
       }
     }
   }
-
 
   /**
    * Use for set the source path of the service (service's name must be present at src/environment/environment.ts)
