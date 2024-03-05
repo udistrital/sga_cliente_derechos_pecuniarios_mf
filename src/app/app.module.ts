@@ -26,6 +26,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { EmptyRouteComponent } from './empty-route/empty-route.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogoDocumentosComponent } from './dialogo-documentos/dialogo-documentos.component';
+import { DialogPreviewFileComponent } from './dialog-preview-file/dialog-preview-file.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.apiUrl + 'assets/i18n/', '.json');
@@ -35,7 +36,8 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     AppComponent,
     EmptyRouteComponent,
-    DialogoDocumentosComponent
+    DialogoDocumentosComponent,
+    DialogPreviewFileComponent
   ],
   imports: [
     MatTabsModule,

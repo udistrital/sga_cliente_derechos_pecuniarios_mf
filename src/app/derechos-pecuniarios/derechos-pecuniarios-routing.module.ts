@@ -9,6 +9,7 @@ import { DialogoConceptosComponent } from './dialogo-conceptos/dialogo-conceptos
 import { ListDerechosPecuniariosComponent } from './list-derechos-pecuniarios/list-derechos-pecuniarios.component';
 import { AuthGuard } from '../_guards/auth.guard';
 import { GeneracionRecibosDerechosPecuniarios } from './generacion-recibos-derechos-pecuniarios/generacion-recibos-derechos-pecuniarios.component';
+import { ConsultarSolicitudesDerechosPecuniarios } from './consultar-solicitudes/consultar-solicitudes.component';
 
 const routes: Routes = [{
     path: '',
@@ -43,6 +44,11 @@ const routes: Routes = [{
             path: 'generacion-recibos-derechos-pecuniarios',
             component: GeneracionRecibosDerechosPecuniarios,
 //            canActivate: [AuthGuard],
+        },
+        {
+            path: 'consultar-solicitudes',
+            component: ConsultarSolicitudesDerechosPecuniarios,
+//            canActivate: [AuthGuard],
         }
     ],
 }];
@@ -65,5 +71,6 @@ export const routedComponents = [
     DefinirConceptosComponent,
     DialogoConceptosComponent,
     ListDerechosPecuniariosComponent,
-    GeneracionRecibosDerechosPecuniarios
+    GeneracionRecibosDerechosPecuniarios,
+    ConsultarSolicitudesDerechosPecuniarios
 ]

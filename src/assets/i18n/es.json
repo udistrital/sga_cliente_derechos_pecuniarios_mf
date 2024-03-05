@@ -1,5 +1,6 @@
 {
     "GLOBAL": {
+        "rol": "Rol",
         "aceptar": "Aceptar",
         "atencion": "Atención",
         "cancelar": "Cancelar",
@@ -24,7 +25,11 @@
         "placeholder_soporte_documento": "Soporte de documento",
         "info_persona": "Información personal",
         "cargar": "Cargar",
-        "documento_identificacion": "Documento de identificación"
+        "documento_identificacion": "Documento de identificación",
+        "adjuntar": "Adjuntar",
+        "info_estado": "Estado de inscripción",
+        "cerrar_visualizador": "Cerrar visualizador",
+        "click_aqui": "Click aquí"
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
@@ -122,7 +127,8 @@
         "pago_ya_adjuntado": "El pago fue adjuntado con anterioridad.",
         "solicitud_generada": "La solicitud se ha generado con éxito.",
         "error_solicitud_generada": "La solicitud no pudo ser generada.",
-        "error_respuesta_solicitud": "No fue posible dar respuesta a la solicitud."
+        "error_respuesta_solicitud": "No fue posible dar respuesta a la solicitud.",
+        "enviar_respuesta": "Enviar respuesta"
     },
     "admision": {
         "revisar_docs": "Revisión de documentos",
