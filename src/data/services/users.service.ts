@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AnyService } from './any.service';
 import { ImplicitAutenticationService } from './implicit_autentication.service';
+import { decrypt, encrypt } from 'src/utils/util-encrypt';
 
 const path = environment.TERCEROS_SERVICE;
 
@@ -47,7 +48,8 @@ export class UserService {
         }
 
         if (!foundId) {
-          window.localStorage.setItem('persona_id', '0');
+          const persona_id = encrypt('0')
+          window.localStorage.setItem('persona_id', persona_id);
         }
 
       });
@@ -88,11 +90,13 @@ export class UserService {
           if (Object.keys(this.user).length !== 0) {
             this.user$.next(this.user);
             this.userSubject.next(this.user);              // window.localStorage.setItem('ente', res[0].Ente);
-            window.localStorage.setItem('persona_id', this.user.Id);
+            const persona_id = encrypt(this.user.Id.toString());
+            window.localStorage.setItem('persona_id', persona_id);
             resolve(true);
           } else {
             //this.user$.next(this.user);
-            window.localStorage.setItem('persona_id', '0');
+            const persona_id = encrypt('0')
+            window.localStorage.setItem('persona_id', persona_id);
             reject(false);
           }
         } else {
@@ -111,17 +115,20 @@ export class UserService {
           if (Object.keys(this.user).length !== 0) {
             this.user$.next(this.user);
             this.userSubject.next(this.user);
-            window.localStorage.setItem('persona_id', this.user.Id);
+            const persona_id = encrypt(this.user.Id.toString())
+            window.localStorage.setItem('persona_id', persona_id);
             resolve(true);
           } else {
             //this.user$.next(this.user);
-            window.localStorage.setItem('persona_id', '0');
+            const persona_id = encrypt('0')
+            window.localStorage.setItem('persona_id', persona_id);
             reject(false);
           }
         }
         else {
           //this.user$.next(this.user);
-          window.localStorage.setItem('persona_id', '0');
+          const persona_id = encrypt('0')
+          window.localStorage.setItem('persona_id', persona_id);
           reject(false);
         }
       });
@@ -141,7 +148,8 @@ export class UserService {
   }
 
   public getPersonaId(): number {
-    return parseInt(window.localStorage.getItem('persona_id'), 10);
+    const id = decrypt(window.localStorage.getItem('persona_id'));
+    return parseInt(id, 10);
   }
 
   public getPeriodo(): number {
