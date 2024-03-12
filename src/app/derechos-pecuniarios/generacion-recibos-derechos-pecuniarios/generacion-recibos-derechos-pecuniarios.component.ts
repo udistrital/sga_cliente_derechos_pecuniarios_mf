@@ -131,6 +131,7 @@ export class GeneracionRecibosDerechosPecuniarios {
     this.info_persona_id = this.userService.getPersonaId();
     if (this.info_persona_id !== undefined && this.info_persona_id !== 0 &&
       this.info_persona_id.toString() !== '' && this.info_persona_id.toString() !== '0') {
+        //CAMBIAR
       this.sgaMidService.get('derechos_pecuniarios/consultar_persona/' + this.info_persona_id).subscribe(async (res: any) => {
         if (res.Success) {
           const temp = <InfoPersona>res.Data;
@@ -175,6 +176,7 @@ export class GeneracionRecibosDerechosPecuniarios {
 
     this.cargarDatosTabla([]);
     if (this.info_persona_id != null && PeriodoActual != null) {
+      //CAMBIAR
       await this.sgaMidService.get('derechos_pecuniarios/estado_recibos/' + this.info_persona_id + '/' + PeriodoActual).subscribe(
         (response: any) => {
           if (response !== null && response.Status === '400') {
@@ -282,7 +284,7 @@ export class GeneracionRecibosDerechosPecuniarios {
             const fecha = new Date();
             fecha.setDate(fecha.getDate() + 90);
             recibo.FechaPago = moment(`${fecha.getFullYear()}-${fecha.getMonth()}-${fecha.getDate()}`, 'YYYY-MM-DD').format('DD/MM/YYYY');
-
+            //CAMBIAR
             this.sgaMidService.post('derechos_pecuniarios/generar_derecho', recibo).subscribe(
               (response: any) => {
                 if (response.Status === '200') {
@@ -324,7 +326,7 @@ export class GeneracionRecibosDerechosPecuniarios {
       this.recibo_pago.CodigoDelEstudiante = data.Codigo_estudiante;
       this.recibo_pago.ValorDerecho = data.Valor;
       this.recibo_pago.Fecha_pago = moment(data.FechaOrdinaria, 'YYYY-MM-DD').format('DD/MM/YYYY');
-
+      //CAMBIAR
       this.sgaMidService.post('generar_recibo/recibo_estudiante/', this.recibo_pago).subscribe(
         response => {
           this.loading = false;
@@ -396,6 +398,7 @@ export class GeneracionRecibosDerechosPecuniarios {
 
   cargarConceptos(egresado: boolean) {
     this.conceptos = [];
+    //CAMBIAR
     this.sgaMidService.get('derechos_pecuniarios/' + this.vigenciaActual).subscribe(
       response => {
         const data: any[] = response.Data;
@@ -499,6 +502,7 @@ export class GeneracionRecibosDerechosPecuniarios {
 
   solicitar(data: any) {
     if (data.comprobanteRecibo) {
+      //CAMBIAR
       this.sgaMidService.post('derechos_pecuniarios/solicitud', data).subscribe(
         (response: any) => {
           if (response.Status === '200') {

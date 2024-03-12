@@ -64,7 +64,7 @@ export class CopiarConceptosComponent implements OnInit {
       VigenciaActual: this.vigencias.filter(vig => vig.Activo === true)[0].Id,
       VigenciaAnterior: this.vigenciaElegida.value,
     };
-
+//CAMBIAR 
     this.sgaMidService
       .post('derechos_pecuniarios/clonar', vigenciaClonar)
       .subscribe(
@@ -84,6 +84,7 @@ export class CopiarConceptosComponent implements OnInit {
 
   cambiarVigencia() {
     let datosCargados: Concepto[] = [];
+    //CAMBIAR
     this.sgaMidService
       .get('derechos_pecuniarios/' + this.vigenciaElegida.value)
       .subscribe(

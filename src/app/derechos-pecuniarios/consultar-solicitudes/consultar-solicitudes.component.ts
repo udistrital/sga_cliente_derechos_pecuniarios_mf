@@ -121,6 +121,7 @@ export class ConsultarSolicitudesDerechosPecuniarios {
 
   async loadInfoRecibos() {
     this.loading = true;
+    //CAMBIAR
     this.sgaMidService.get('derechos_pecuniarios/solicitudes').subscribe(
       (response: any) => {
         if (response !== null && response.Status === '400') {
@@ -193,6 +194,7 @@ export class ConsultarSolicitudesDerechosPecuniarios {
         Observacion: this.formGestion.controls['observacion'].value,
         TerceroResponasble: { Id: this.userResponse.Id }
       }
+      //CAMBIAR
       this.sgaMidService.post('derechos_pecuniarios/respuesta_solicitud/' + this.solicitudData.Id, this.Respuesta).subscribe(
         (res: any) => {
           if (res !== null && res.Status === '200') {

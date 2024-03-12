@@ -18,37 +18,30 @@ const routes: Routes = [{
         {
             path: 'consultar-conceptos',
             component: ConsultarConceptosComponent,
-//            canActivate: [AuthGuard],
         },
         {
             path: 'crud-derechos-pecuniarios',
             component: CrudDerechosPecuniariosComponent,
-//            canActivate: [AuthGuard],
         },
         {
             path: 'copiar-conceptos',
             component: CopiarConceptosComponent,
-//            canActivate: [AuthGuard],
         },
         {
             path: 'definir-conceptos',
             component: DefinirConceptosComponent,
-//            canActivate: [AuthGuard],
         },
         {
             path: 'list-derechos-pecuniarios',
             component: ListDerechosPecuniariosComponent,
-//            canActivate: [AuthGuard],
         },
         {
             path: 'generacion-recibos-derechos-pecuniarios',
             component: GeneracionRecibosDerechosPecuniarios,
-//            canActivate: [AuthGuard],
         },
         {
             path: 'consultar-solicitudes',
             component: ConsultarSolicitudesDerechosPecuniarios,
-//            canActivate: [AuthGuard],
         }
     ],
 }];

@@ -143,6 +143,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
         .then(willSave => {
           if (willSave.value) {
             this.loading = true;
+            //CAMBIAR
             this.sgaMidService
               .post('derechos_pecuniarios/actualizar_valor/', this.datosCargados)
               .subscribe(
@@ -204,6 +205,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
       );
 
     this.datosCargados = [];
+    //CAMBIAR
     this.sgaMidService
       .get('derechos_pecuniarios/' + this.vigenciaActual.value)
       .subscribe(
@@ -261,6 +263,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
         nuevoConcepto.Vigencia = {
           Id: this.vigenciaActual.value,
         };
+        //CAMBIAR
         this.sgaMidService
           .post('derechos_pecuniarios', nuevoConcepto)
           .subscribe(
@@ -309,6 +312,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
         updateConcepto.Vigencia = {
           Id: this.vigenciaActual.value,
         };
+        //CAMBIAR
         this.sgaMidService
           .put('derechos_pecuniarios/update/' + data.Id, updateConcepto)
           .subscribe(
@@ -335,6 +339,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
       )
       .then(willDelete => {
         if (willDelete.value) {
+          //CAMBIAR
           this.sgaMidService
             .delete('derechos_pecuniarios', data)
             .subscribe(
