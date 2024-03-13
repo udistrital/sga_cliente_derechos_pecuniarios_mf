@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultarConceptosComponent } from './consultar-conceptos/consultar-conceptos.component';
 import { PopUpManager } from '../managers/popup_manager';
 import { ParametrosService } from 'src/data/services/parametros.service';
-import { SgaMidService } from 'src/data/services/sga_mid.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
@@ -112,7 +111,6 @@ import { ConsultarSolicitudesDerechosPecuniarios } from './consultar-solicitudes
   providers: [
     PopUpManager,
     ParametrosService,
-    SgaMidService,
     NewNuxeoService,
     DocumentoService,
     {

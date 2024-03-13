@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PopUpManager } from 'src/app/managers/popup_manager';
 import { Concepto } from 'src/data/models/concepto';
 import { ParametrosService } from 'src/data/services/parametros.service';
-import { SgaMidService } from 'src/data/services/sga_mid.service';
+import { SgaDerechoPecunarioMidService } from 'src/data/services/sga_derecho_pecunario_mid.service';
 
 @Component({
   selector: 'copiar-conceptos',
@@ -33,7 +33,7 @@ export class CopiarConceptosComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private parametrosService: ParametrosService,
-    private sgaMidService: SgaMidService,
+    private sgaDerechoPecunarioMidService: SgaDerechoPecunarioMidService,
     private popUpManager: PopUpManager,
   ) {
     this.vigenciaElegida = new FormControl('');
@@ -64,9 +64,8 @@ export class CopiarConceptosComponent implements OnInit {
       VigenciaActual: this.vigencias.filter(vig => vig.Activo === true)[0].Id,
       VigenciaAnterior: this.vigenciaElegida.value,
     };
-//CAMBIAR 
-    this.sgaMidService
-      .post('derechos_pecuniarios/clonar', vigenciaClonar)
+    this.sgaDerechoPecunarioMidService
+      .post('derechos-pecuniarios/vigencias/clonar-conceptos', vigenciaClonar)
       .subscribe(
         () => {
           this.router.navigate(
@@ -84,12 +83,11 @@ export class CopiarConceptosComponent implements OnInit {
 
   cambiarVigencia() {
     let datosCargados: Concepto[] = [];
-    //CAMBIAR
-    this.sgaMidService
-      .get('derechos_pecuniarios/' + this.vigenciaElegida.value)
+    this.sgaDerechoPecunarioMidService
+      .get('derechos-pecuniarios/vigencias/' + this.vigenciaElegida.value)
       .subscribe(
         response => {
-          const data: any[] = response.Data;
+          const data: any[] = response.data;
           if (Object.keys(data).length > 0 && Object.keys(data[0]).length > 0) {
             data.forEach(obj => {
               const concepto = new Concepto();
