@@ -150,7 +150,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
             this.loading = true;
             this.sgaDerechoPecunarioMidService
               .post(
-                'derechos-pecuniarios/conceptos/costo/',
+                'derechos-pecuniarios/conceptos/costos/',
                 this.datosCargados
               )
               .subscribe(
