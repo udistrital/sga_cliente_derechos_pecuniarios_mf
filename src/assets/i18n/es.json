@@ -134,5 +134,11 @@
         "revisar_docs": "Revisión de documentos",
         "btn_doc_No_aprobar": "Rechazar documento"
     },
+    "recibo_pago": {
+        "generado": "El recibo de pago ha sido generado correctamente",
+        "no_generado": "El recibo no ha podido ser generado. Verifique su información personal",
+        "recibo_duplicado": "Ya ha generado un recibo con los criterios seleccionados",
+        "maximo_recibos": "Ya genero el máximo de recibos permitidos"
+    },
     "undefined": "Indefinido"
 }
