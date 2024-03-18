@@ -22,6 +22,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SgaDerechoPecunarioMidService } from 'src/data/services/sga_derecho_pecunario_mid.service';
 import { SgaInscripcionMidService } from 'src/data/services/sga_inscripcion_mid.service';
+import { SgaMidService } from 'src/data/services/sga_mid.service';
 
 @Component({
   selector: 'generacion-recibos-derechos-pecuniarios',
@@ -107,7 +108,8 @@ export class GeneracionRecibosDerechosPecuniarios {
     private userService: UserService,
     private parametrosService: ParametrosService,
     private sgaDerechoPecunarioMidService: SgaDerechoPecunarioMidService,
-    private sgaInscripcionMidService:SgaInscripcionMidService
+    private sgaInscripcionMidService:SgaInscripcionMidService,
+    private sgaMidService: SgaMidService
   ) {
     this.nombresColumnas['Periodo'] = 'derechos_pecuniarios.periodo';
     this.nombresColumnas['Id'] = 'derechos_pecuniarios.id';
@@ -154,7 +156,7 @@ export class GeneracionRecibosDerechosPecuniarios {
 
   public async loadInfoPersona(): Promise<void> {
     this.loading = true;
-    this.info_persona_id = this.userService.getPersonaId();
+    this.info_persona_id = await this.userService.getPersonaId();
     if (
       this.info_persona_id !== undefined &&
       this.info_persona_id !== 0 &&
@@ -165,8 +167,8 @@ export class GeneracionRecibosDerechosPecuniarios {
         .get('derechos-pecuniarios/personas/' + this.info_persona_id)
         .subscribe(
           async (res: any) => {
-            if (res.Success) {
-              const temp = <InfoPersona>res.Data;
+            if (res.success) {
+              const temp = <InfoPersona>res.data;
               this.info_info_persona = temp;
               const files = [];
             }
@@ -238,6 +240,8 @@ export class GeneracionRecibosDerechosPecuniarios {
               this.cargarDatosTabla([]);
             } else {
               const data = <Array<any>>response.data;
+              console.log(response)
+              console.log(data)
               const dataInfo = <Array<any>>[];
               this.recibos_pendientes = 0;
               data.forEach((element) => {
@@ -358,18 +362,18 @@ export class GeneracionRecibosDerechosPecuniarios {
               .post('derechos-pecuniarios/derechos', recibo)
               .subscribe(
                 (response: any) => {
-                  if (response.status === '200') {
+                  if (response.status === 200) {
                     this.loadInfoRecibos();
                     this.popUpManager.showSuccessAlert(
                       this.translate.instant('recibo_pago.generado')
                     );
                     this.new_pecuniario = false;
                     this.gen_recibo = false;
-                  } else if (response.success) {
+                  } else if (response.status === 204) {
                     this.popUpManager.showErrorAlert(
                       this.translate.instant('recibo_pago.recibo_duplicado')
                     );
-                  } else if (response.status === '400') {
+                  } else if (response.status === 404) {
                     this.popUpManager.showErrorToast(
                       this.translate.instant('recibo_pago.no_generado')
                     );
@@ -412,18 +416,19 @@ export class GeneracionRecibosDerechosPecuniarios {
 
       this.recibo_pago.Codigo = data.Codigo;
       this.recibo_pago.CodigoDelEstudiante = data.Codigo_estudiante;
-      this.recibo_pago.ValorDerecho = data.Valor;
+      this.recibo_pago.ValorDerecho = parseInt(data.Valor);
       this.recibo_pago.Fecha_pago = moment(
         data.FechaOrdinaria,
         'YYYY-MM-DD'
       ).format('DD/MM/YYYY');
+      // this.sgaMidService.post('generar_recibo/recibo_estudiante/', this.recibo_pago)
       this.sgaInscripcionMidService
         .post('recibos/estudiantes/', this.recibo_pago)
         .subscribe(
           (response) => {
             this.loading = false;
             const reciboData = new Uint8Array(
-              atob(response['Data'])
+              atob(response['data'])
                 .split('')
                 .map((char) => char.charCodeAt(0))
             );
@@ -514,7 +519,7 @@ export class GeneracionRecibosDerechosPecuniarios {
   cargarConceptos(egresado: boolean) {
     this.conceptos = [];
     this.sgaDerechoPecunarioMidService
-      .get('derechos-pecuniarios/conceptos/' + this.vigenciaActual)
+      .get('derechos-pecuniarios/vigencias/' + this.vigenciaActual)
       .subscribe(
         (response) => {
           const data: any[] = response.data;
@@ -635,6 +640,7 @@ export class GeneracionRecibosDerechosPecuniarios {
   }
 
   solicitar(data: any) {
+    console.log(data)
     if (data.comprobanteRecibo) {
       this.sgaDerechoPecunarioMidService
         .post('derechos-pecuniarios/solicitudes', data)
