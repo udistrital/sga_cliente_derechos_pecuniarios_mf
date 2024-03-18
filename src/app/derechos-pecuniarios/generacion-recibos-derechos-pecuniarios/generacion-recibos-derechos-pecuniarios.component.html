@@ -203,18 +203,13 @@
                 </div>
             </div>
         </fieldset>
-        <mat-card *ngIf="gen_recibo" class="exp-card text-center">
-            <mat-card-header>
-                <mat-card-title>
-                    {{ 'derechos_pecuniarios.generar_recibo' | translate }}
-                </mat-card-title>
-            </mat-card-header>
+        <div *ngIf="gen_recibo" class="exp-card text-center">
             <mat-card-content>
-                <button mat-icon-button>
-                    <mat-icon (click)="generar_recibo()">barcode</mat-icon>
+                <button mat-button class="boton-primary" (click)="generar_recibo()">
+                    {{ 'derechos_pecuniarios.generar_recibo' | translate }}<mat-icon>receipt</mat-icon>
                 </button>
             </mat-card-content>
-        </mat-card>
+        </div>
 
         <br><br>
         <div class="text-center" *ngIf="new_pecuniario">
