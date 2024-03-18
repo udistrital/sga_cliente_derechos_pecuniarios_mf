@@ -7,7 +7,7 @@ export class ReciboPago {
   Periodo: string;
   Codigo: string;
   Descripcion: string;
-  ValorDerecho: string;
+  ValorDerecho: number;
   Fecha_pago: string;
   Comprobante: string;
 }
