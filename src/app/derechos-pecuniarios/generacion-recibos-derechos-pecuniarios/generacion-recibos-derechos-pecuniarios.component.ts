@@ -22,7 +22,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SgaDerechoPecunarioMidService } from 'src/data/services/sga_derecho_pecunario_mid.service';
 import { SgaInscripcionMidService } from 'src/data/services/sga_inscripcion_mid.service';
-import { SgaMidService } from 'src/data/services/sga_mid.service';
 
 @Component({
   selector: 'generacion-recibos-derechos-pecuniarios',
@@ -108,8 +107,7 @@ export class GeneracionRecibosDerechosPecuniarios {
     private userService: UserService,
     private parametrosService: ParametrosService,
     private sgaDerechoPecunarioMidService: SgaDerechoPecunarioMidService,
-    private sgaInscripcionMidService:SgaInscripcionMidService,
-    private sgaMidService: SgaMidService
+    private sgaInscripcionMidService:SgaInscripcionMidService
   ) {
     this.nombresColumnas['Periodo'] = 'derechos_pecuniarios.periodo';
     this.nombresColumnas['Id'] = 'derechos_pecuniarios.id';
