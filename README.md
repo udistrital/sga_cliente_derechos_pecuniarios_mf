@@ -11,7 +11,7 @@ Cliente para la gestión de derechos pecuniarios, parte del Sistema de Gestión 
 - [Angular Material](https://material.angular.io/) 16.2.13
 - [Angular CDK](https://material.angular.io/cdk/categories) 16.2.13
 - [Angular Flex-Layout](https://github.com/angular/flex-layout) 15.0.0-beta.42
-- [ngx-translate](http://www.ngx-translate.com/) 15.0.0
+- [ngx-translate](https://github.com/ngx-translate/core) 15.0.0
   - Incluye ngx-translate Http Loader
 - [Popper.js](https://popper.js.org/docs/v2/) 2.11.8
 - [Bootstrap](https://getbootstrap.com/) 5.3.2
