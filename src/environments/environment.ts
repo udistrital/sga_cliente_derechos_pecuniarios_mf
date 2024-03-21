@@ -2,15 +2,11 @@ export const environment = {
   production: false,
   assets: 'https://pruebasassets.portaloas.udistrital.edu.co/',
   apiUrl: 'http://localhost:4208/',
+  SGA_DERECHO_PECUNARIO_MID: 'http://pruebasapi3.intranetoas.udistrital.edu.co:8544/v1/',
+  SGA_INSCRIPCION_MID: 'http://pruebasapi3.intranetoas.udistrital.edu.co:8543/v1/',
   PARAMETROS_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8510/v1/',
-  //PARAMETROS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/parametros/v1/',
-  //PARAMETROS_SERVICE: 'http://localhost:8080/v1/',
-  //SGA_MID_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/sga_mid/v1/',
-  SGA_MID_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8119/v1/',
-  //SGA_MID_SERVICE: 'http://localhost:8095/v1/',
   NUXEO_SERVICE:'https://autenticacion.portaloas.udistrital.edu.co/apioas/gestor_documental_mid/v1',
   PSE_SERVICE: 'https://pruebasfuncionarios.portaloas.udistrital.edu.co/botonPago/index.php?',
-  //TERCEROS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/terceros_crud/v1/',
   TERCEROS_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8121/v1/',
   DOCUMENTO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/documento_crud/v2/',
   TOKEN: {
@@ -22,5 +18,5 @@ export const environment = {
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
     SIGN_OUT_REDIRECT_URL: 'http://localhost:4200/',
     AUTENTICACION_MID: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/autenticacion_mid/v1/token/userRol',
-  }
+  },
 };
