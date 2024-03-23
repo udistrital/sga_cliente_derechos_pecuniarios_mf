@@ -29,7 +29,6 @@ export class ConsultarSolicitudesDerechosPecuniarios {
   data: any[] = [];
   solicitudData: any = null;
   userResponse: any;
-  loading: boolean;
 
   InfoDocumentos: any;
   arr_proyecto: InstitucionEnfasis[] = [];
@@ -140,7 +139,6 @@ export class ConsultarSolicitudesDerechosPecuniarios {
   }
 
   async loadInfoRecibos() {
-    this.loading = true;
     this.sgaDerechoPecunarioMidService
       .get('derechos-pecuniarios/solicitudes')
       .subscribe(
@@ -185,12 +183,9 @@ export class ConsultarSolicitudesDerechosPecuniarios {
             });
 
             this.cargarDatosTabla(dataInfo);
-
-            this.loading = false;
           }
         },
         () => {
-          this.loading = false;
           this.popUpManager.showErrorToast(
             this.translate.instant('ERROR.general')
           );
@@ -204,7 +199,6 @@ export class ConsultarSolicitudesDerechosPecuniarios {
       if (typeof this.file !== 'undefined' && this.file !== null) {
         let FORMULARIO_SOLICITUD = 'FORMULARIO_SOLICITUD';
         let tipoDocumento = 25;
-        this.loading = true;
         const file = {
           file: await this.nuxeo.fileToBase64(this.file),
           IdTipoDocumento: tipoDocumento,
@@ -252,17 +246,14 @@ export class ConsultarSolicitudesDerechosPecuniarios {
                   this.translate.instant('GLOBAL.operacion_exitosa')
               );
               this.loadInfoRecibos();
-              this.loading = false;
               this.gestion = false;
             } else {
-              this.loading = false;
               this.popUpManager.showErrorAlert(
                 this.translate.instant('GLOBAL.error_practicas_academicas')
               );
             }
           },
           () => {
-            this.loading = false;
             this.popUpManager.showErrorToast(
               this.translate.instant('ERROR.general')
             );

@@ -41,7 +41,6 @@ export class GeneracionRecibosDerechosPecuniarios {
   info_info_persona: any;
   recibo_pago: ReciboPago;
   clean: boolean;
-  loading: boolean;
   estudiante: number;
   periodo: Periodo;
   periodos = [];
@@ -153,7 +152,6 @@ export class GeneracionRecibosDerechosPecuniarios {
   }
 
   public async loadInfoPersona(): Promise<void> {
-    this.loading = true;
     this.info_persona_id = await this.userService.getPersonaId();
     if (
       this.info_persona_id !== undefined &&
@@ -174,7 +172,6 @@ export class GeneracionRecibosDerechosPecuniarios {
             this.loadInfoRecibos();
           },
           (error: HttpErrorResponse) => {
-            this.loading = false;
             this.popUpManager.showErrorAlert(
               this.translate.instant('ERROR.' + error.status),
               this.translate.instant('GLOBAL.cargar') +
@@ -186,7 +183,6 @@ export class GeneracionRecibosDerechosPecuniarios {
     } else {
       this.info_info_persona = undefined;
       this.clean = !this.clean;
-      this.loading = false;
       this.popUpManager.showAlert(
         this.translate.instant('GLOBAL.info'),
         this.translate.instant('GLOBAL.no_info_persona')
@@ -213,7 +209,6 @@ export class GeneracionRecibosDerechosPecuniarios {
   }
 
   async loadInfoRecibos() {
-    this.loading = true;
     // Función del MID que retorna el estado del recibo
     const PeriodoActual = localStorage.getItem('IdPeriodo');
 
@@ -309,12 +304,9 @@ export class GeneracionRecibosDerechosPecuniarios {
                 dataInfo.push(element);
               });
               this.cargarDatosTabla(dataInfo);
-
-              this.loading = false;
             }
           },
           () => {
-            this.loading = false;
             this.popUpManager.showErrorToast(
               this.translate.instant('ERROR.general')
             );
@@ -335,7 +327,6 @@ export class GeneracionRecibosDerechosPecuniarios {
         )
         .then(async (ok) => {
           if (ok.value) {
-            this.loading = true;
             const recibo = {
               Id: this.info_info_persona.Id,
               Nombre: `${this.info_info_persona.PrimerNombre}${this.info_info_persona.SegundoNombre}`,
@@ -376,10 +367,8 @@ export class GeneracionRecibosDerechosPecuniarios {
                       this.translate.instant('recibo_pago.no_generado')
                     );
                   }
-                  this.loading = false;
                 },
                 (error: HttpErrorResponse) => {
-                  this.loading = false;
                   this.popUpManager.showErrorToast(
                     this.translate.instant(`ERROR.${error.status}`)
                   );
@@ -424,7 +413,6 @@ export class GeneracionRecibosDerechosPecuniarios {
         .post('recibos/estudiantes/', this.recibo_pago)
         .subscribe(
           (response) => {
-            this.loading = false;
             const reciboData = new Uint8Array(
               atob(response['data'])
                 .split('')
@@ -436,7 +424,6 @@ export class GeneracionRecibosDerechosPecuniarios {
             window.open(this.recibo_generado);
           },
           (error) => {
-            this.loading = false;
             this.popUpManager.showErrorToast(
               this.translate.instant('recibo_pago.no_generado')
             );
@@ -493,7 +480,6 @@ export class GeneracionRecibosDerechosPecuniarios {
             }
           },
           (error: HttpErrorResponse) => {
-            this.loading = false;
             reject([]);
           }
         );
@@ -501,7 +487,6 @@ export class GeneracionRecibosDerechosPecuniarios {
   }
 
   cargarDatos(event) {
-    this.loading = true;
     this.generacion_recibo.curricularProgram = event.value.Proyecto.slice(28);
     this.generacion_recibo.CodigoEstudiante = event.value.Dato;
     this.generacion_recibo.IdProyecto = event.value.IdProyecto;
@@ -548,7 +533,6 @@ export class GeneracionRecibosDerechosPecuniarios {
                 this.conceptos.push(concepto);
               }
             });
-            this.loading = false;
           } else {
             this.popUpManager.showAlert(
               'info',
@@ -605,7 +589,6 @@ export class GeneracionRecibosDerechosPecuniarios {
           const comprobanteRecibo = result.value;
 
           let files: Array<any> = [];
-          this.loading = true;
 
           let dataAux = data;
           delete data.Solicitar.disabled;
@@ -626,7 +609,6 @@ export class GeneracionRecibosDerechosPecuniarios {
           files.push(file);
           data.comprobanteRecibo = file;
           data.SolicitanteId = this.info_persona_id;
-          this.loading = false;
         }
       });
     } else {
@@ -645,7 +627,6 @@ export class GeneracionRecibosDerechosPecuniarios {
         .subscribe(
           (response: any) => {
             if (response.status === '200') {
-              this.loading = true;
               this.loadInfoRecibos();
               this.popUpManager.showSuccessAlert(
                 this.translate.instant(
@@ -659,10 +640,8 @@ export class GeneracionRecibosDerechosPecuniarios {
                 )
               );
             }
-            this.loading = false;
           },
           (error: HttpErrorResponse) => {
-            this.loading = false;
             this.popUpManager.showErrorToast(
               this.translate.instant(`ERROR.${error.status}`)
             );
