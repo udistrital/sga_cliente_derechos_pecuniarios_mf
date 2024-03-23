@@ -26,7 +26,6 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
   salarioValor: number;
   vigenciaActual: FormControl;
   guardable: boolean = false;
-  loading: boolean = false;
 
   @Input()
   mostrarCalcular: boolean = false;
@@ -147,7 +146,6 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
         )
         .then((willSave) => {
           if (willSave.value) {
-            this.loading = true;
             this.sgaDerechoPecunarioMidService
               .post(
                 'derechos-pecuniarios/conceptos/costos/',
@@ -156,7 +154,6 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
               .subscribe(
                 () => {
                   this.guardable = false;
-                  this.loading = false;
                   this.popUpManager.showSuccessAlert(
                     this.translate.instant(
                       'derechos_pecuniarios.registro_costo'
