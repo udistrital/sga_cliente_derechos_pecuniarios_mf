@@ -26,7 +26,9 @@
         "adjuntar": "Attach",
         "info_estado": "Registration Status",
         "cerrar_visualizador": "Close viewer",
-        "click_aqui": "Click here"
+        "click_aqui": "Click here",
+        "documento_identificacion": "Identification document",
+        "error_practicas_academicas": "It was not possible to register the academic practice"
     },
     "ERROR": {
         "general": "The request could not be satisfied",

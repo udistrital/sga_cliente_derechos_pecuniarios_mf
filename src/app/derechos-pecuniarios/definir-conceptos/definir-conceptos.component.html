@@ -1,4 +1,4 @@
-<div fxLayout="row">
+<div fxLayout="row" id="definir-conceptos">
   <div fxFlex>
     <mat-card>
       <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
@@ -8,7 +8,7 @@
           {{ 'derechos_pecuniarios.titulo' | translate }}
         </legend>
         <mat-card-content>
-          <div fxLayout="row">
+          <div fxLayout="row" class="container-inputs">
             <div fxFlex="40">
               <mat-form-field style="width: 90%;">
                 <mat-label>{{ 'derechos_pecuniarios.vigencia' | translate }}</mat-label>
