@@ -1,9 +1,7 @@
 <div fxLayout="row">
   <div fxFlex>
     <mat-card>
-      <mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
-
-      <fieldset *ngIf="!loading" [ngClass]="{'fieldseter':true}">
+      <fieldset [ngClass]="{'fieldseter':true}">
         <legend>
           {{ 'derechos_pecuniarios.titulo' | translate }}
         </legend>
