@@ -29,7 +29,8 @@
         "adjuntar": "Adjuntar",
         "info_estado": "Estado de inscripción",
         "cerrar_visualizador": "Cerrar visualizador",
-        "click_aqui": "Click aquí"
+        "click_aqui": "Click aquí",
+        "error_practicas_academicas": "No fue posible registrar la práctica académica"
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
