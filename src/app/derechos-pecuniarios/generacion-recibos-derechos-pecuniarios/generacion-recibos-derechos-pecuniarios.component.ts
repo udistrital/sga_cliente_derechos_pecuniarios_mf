@@ -16,7 +16,8 @@ import { ParametrosService } from 'src/data/services/parametros.service';
 import { InfoPersona } from 'src/data/models/info_persona';
 import { Concepto } from 'src/data/models/concepto';
 import { DialogoDocumentosComponent } from 'src/app/dialogo-documentos/dialogo-documentos.component';
-import Swal from 'sweetalert2';
+// @ts-ignore
+import Swal from 'sweetalert2/dist/sweetalert2';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
