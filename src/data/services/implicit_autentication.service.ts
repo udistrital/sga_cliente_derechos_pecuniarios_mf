@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Md5 } from 'ts-md5';
 import { BehaviorSubject, of } from 'rxjs';
-import Swal from 'sweetalert2';
+// @ts-ignore
+import Swal from 'sweetalert2/dist/sweetalert2';
 import { delay, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 

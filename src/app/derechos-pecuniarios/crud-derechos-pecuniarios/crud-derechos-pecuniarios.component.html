@@ -1,22 +1,33 @@
-<div fxLayout="row" id="derechos-pecuniarios">
-  <div fxFlex>
-    <mat-card>
-      <fieldset [ngClass]="{'fieldseter':true} ">
-        <legend>
-          {{ 'derechos_pecuniarios.titulo' | translate }}
-        </legend>
-        <mat-card-content>
-          <p>{{ 'derechos_pecuniarios.forma' | translate }} </p>
-          <div fxLayout="row">
-            <div fxFlex="50" class="text-center">
-              <button mat-button type="button" color="primary" class="boton-info" (click)="copiarDerechos()" >{{ 'derechos_pecuniarios.copiar' | translate }} </button>
-            </div>
-            <div fxFlex="50" class="text-center">
-              <button mat-button type="button" color="primary" class="boton-info" (click)="definirDerechos()" >{{ 'derechos_pecuniarios.definir' | translate }} </button>
-            </div>
-          </div>
-        </mat-card-content>
-      </fieldset>
-    </mat-card>
-  </div>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      {{ "derechos_pecuniarios.titulo" | translate }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <br />
+    <p>{{ "derechos_pecuniarios.forma" | translate }}</p>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap" class="margin-y">
+      <button
+        mat-flat-button
+        type="button"
+        color="primary"
+        class="boton-info"
+        (click)="copiarDerechos()"
+      >
+        {{ "derechos_pecuniarios.copiar" | translate }}
+      </button>
+
+      <button
+        mat-flat-button
+        type="button"
+        color="primary"
+        class="boton-info"
+        (click)="definirDerechos()"
+      >
+        {{ "derechos_pecuniarios.definir" | translate }}
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

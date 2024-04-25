@@ -5,45 +5,39 @@
     }}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <hr width="0%" />
-    <fieldset [ngClass]="{ fieldseter: true }">
-      <div class="row">
-        <div class="col-3">
-          <label for="">{{ "GLOBAL.nombre" | translate }}</label>
-        </div>
-        <div class="col-9">
-          <span class="form-control">
-            {{
-              userData
+    <!-- INFORMACION DEL USUARIO -->
+    <div class="margin-y">
+      <div>
+        <label for=""
+          ><b>{{ "GLOBAL.nombre" | translate }}: </b></label
+        >
+        <span class="form-control">
+          {{
+            userData
+              ? userData.NombreCompleto
                 ? userData.NombreCompleto
-                  ? userData.NombreCompleto
-                  : ""
                 : ""
-            }}
-          </span>
-        </div>
+              : ""
+          }}
+        </span>
       </div>
-      <br />
-      <div class="row">
-        <div class="col-3">
-          <label for="">{{
-            "GLOBAL.documento_identificacion" | translate
-          }}</label>
-        </div>
-        <div class="col-9">
-          <span class="form-control">
-            {{ userData ? (userData.Documento ? userData.Documento : "") : "" }}
-          </span>
-        </div>
-      </div>
-    </fieldset>
+      <div>
+        <label for=""
+          ><b>{{ "GLOBAL.documento_identificacion" | translate }}: </b></label
+        >
 
-    <br />
-    <fieldset [ngClass]="{ fieldseter: true }" *ngIf="!new_pecuniario">
-      <legend>
+        <span class="form-control">
+          {{ userData ? (userData.Documento ? userData.Documento : "") : "" }}
+        </span>
+      </div>
+    </div>
+
+    <!-- TABLA DE RECIBOS GENERADOS -->
+    <div *ngIf="!new_pecuniario">
+      <h3>
         {{ "derechos_pecuniarios.recibos_generados" | translate }}
-      </legend>
-      <div style="overflow: auto">
+      </h3>
+      <div class="table mat-elevation-z8 margin-y">
         <table mat-table [dataSource]="dataSource" matSort>
           <ng-container
             *ngFor="let columna of displayedColumns"
@@ -83,6 +77,7 @@
               >
                 <button
                   mat-icon-button
+                  color="accent"
                   [matTooltip]="fila[columna]?.label"
                   (click)="descargarReciboPago(fila)"
                 >
@@ -97,6 +92,7 @@
               >
                 <button
                   mat-icon-button
+                  color="accent"
                   [matTooltip]="fila[columna]?.label"
                   (click)="pagar(fila)"
                 >
@@ -113,6 +109,7 @@
               >
                 <button
                   mat-icon-button
+                  color="accent"
                   [matTooltip]="fila[columna]?.label"
                   (click)="adjuntarPago(fila)"
                 >
@@ -129,6 +126,7 @@
               >
                 <button
                   mat-icon-button
+                  color="accent"
                   [matTooltip]="fila[columna]?.label"
                   (click)="solicitar(fila)"
                 >
@@ -144,6 +142,7 @@
                 "
               >
                 <button
+                  color="accent"
                   mat-icon-button
                   [matTooltip]="fila[columna]?.label"
                   (click)="verRespuesta(fila)"
@@ -171,10 +170,9 @@
       <div class="text-center">
         <button
           *ngIf="!new_pecuniario"
-          mat-button
+          mat-flat-button
           type="button"
-          color="primary"
-          class="boton-primary"
+          color="accent"
           (click)="nuevoDerecho()"
         >
           {{
@@ -182,168 +180,148 @@
           }}
         </button>
       </div>
-    </fieldset>
+    </div>
 
-    <br />
-    <fieldset [ngClass]="{ fieldseter: true }" *ngIf="new_pecuniario">
-      <legend>
-        {{ "derechos_pecuniarios.codigos_relacionados" | translate }}
-      </legend>
-      <div class="row">
-        <div class="col-12">
-          <mat-form-field style="width: 100%">
-            <mat-select
-              placeholder="{{
-                'derechos_pecuniarios.placeholder_codigos_relacionados'
-                  | translate
-              }}"
-              (selectionChange)="cargarDatos($event)"
-            >
-              <mat-option
-                *ngFor="let codigo of info_info_persona.Codigos"
-                [value]="codigo"
-              >
-                <b>{{ codigo.Proyecto.slice(0, 11) }}</b
-                >{{ codigo.Proyecto.slice(11) }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-    </fieldset>
-
-    <br />
-    <fieldset [ngClass]="{ fieldseter: true }" *ngIf="new_pecuniario">
-      <legend>
-        {{ "derechos_pecuniarios.derecho_pecuniario" | translate }}
-      </legend>
-      <div class="row" *ngIf="new_pecuniario">
-        <div class="col-12">
-          <mat-form-field style="width: 100%">
-            <mat-select
-              placeholder="{{
-                'derechos_pecuniarios.placeholder_derecho_pecuniario'
-                  | translate
-              }}"
-              (selectionChange)="loadConcepto($event)"
-            >
-              <mat-option
-                *ngFor="let concepto of conceptos"
-                [value]="concepto"
-                >{{ concepto.Nombre }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-    </fieldset>
-
-    <br />
-    <fieldset [ngClass]="{ fieldseter: true }" *ngIf="new_pecuniario">
-      <legend>{{ "derechos_pecuniarios.verificar_datos" | translate }}</legend>
-      <div class="row">
-        <div class="col-3">
-          <label for="">{{ "derechos_pecuniarios.codigo" | translate }}</label>
-        </div>
-        <div class="col-9">
-          <span class="form-control">
-            {{ generacion_recibo.code }}
-          </span>
-        </div>
-      </div>
-      <br />
-      <div class="row">
-        <div class="col-3">
-          <label for="">{{
-            "GLOBAL.documento_identificacion" | translate
-          }}</label>
-        </div>
-        <div class="col-9">
-          <span class="form-control">
-            {{ generacion_recibo.documentId }}
-          </span>
-        </div>
-      </div>
-      <br />
-      <div class="row">
-        <div class="col-3">
-          <label for="">{{ "GLOBAL.nombre" | translate }}</label>
-        </div>
-        <div class="col-9">
-          <span class="form-control">
-            {{ generacion_recibo.username }}
-          </span>
-        </div>
-      </div>
-      <br />
-      <div class="row">
-        <div class="col-3">
-          <label for="">{{
-            "derechos_pecuniarios.proyecto_curricular" | translate
-          }}</label>
-        </div>
-        <div class="col-9">
-          <span class="form-control">
-            {{ generacion_recibo.curricularProgram }}
-          </span>
-        </div>
-      </div>
-      <br />
-      <div class="row">
-        <div class="col-3">
-          <label for="">{{
-            "derechos_pecuniarios.concepto_recibo" | translate
-          }}</label>
-        </div>
-        <div class="col-9">
-          <span class="form-control">
-            {{ generacion_recibo.concept }}
-          </span>
-        </div>
-      </div>
-      <br />
-      <div class="row">
-        <div class="col-3">
-          <label for="">{{ "derechos_pecuniarios.valor" | translate }}</label>
-        </div>
-        <div class="col-9">
-          <span
-            *ngIf="
-              generacion_recibo.value && generacion_recibo.value.toLowerCase
-            "
-            class="form-control"
+    <mat-card *ngIf="new_pecuniario">
+      <mat-card-content>
+        <h5>{{ "derechos_pecuniarios.codigos_relacionados" | translate }} :</h5>
+        <mat-form-field style="width: 100%">
+          <mat-select
+            placeholder="{{
+              'derechos_pecuniarios.placeholder_codigos_relacionados'
+                | translate
+            }}"
+            (selectionChange)="cargarDatos($event)"
           >
-            {{ generacion_recibo.value }}
-          </span>
-          <span
-            *ngIf="
-              generacion_recibo.value && generacion_recibo.value.toExponential
-            "
-            class="form-control"
+            <mat-option
+              *ngFor="let codigo of info_info_persona.Codigos"
+              [value]="codigo"
+            >
+              <b>{{ codigo.Proyecto.slice(0, 11) }}</b
+              >{{ codigo.Proyecto.slice(11) }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <h5>
+          {{ "derechos_pecuniarios.derecho_pecuniario" | translate }}
+        </h5>
+
+        <mat-form-field style="width: 100%">
+          <mat-select
+            placeholder="{{
+              'derechos_pecuniarios.placeholder_derecho_pecuniario' | translate
+            }}"
+            (selectionChange)="loadConcepto($event)"
           >
-            {{ formatterPeso.format(generacion_recibo.value) }}
-          </span>
-        </div>
-      </div>
-    </fieldset>
-    <div *ngIf="gen_recibo" class="exp-card text-center">
-      <mat-card-content
-        class="d-flex justify-content-center align-items-center"
-      >
+            <mat-option *ngFor="let concepto of conceptos" [value]="concepto">{{
+              concepto.Nombre
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              {{ "derechos_pecuniarios.verificar_datos" | translate }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <br />
+            <div>
+              <label for=""
+                ><b>{{ "derechos_pecuniarios.codigo" | translate }}: </b></label
+              >
+
+              <span class="form-control">
+                {{ generacion_recibo.code }}
+              </span>
+            </div>
+            <div>
+              <label for=""
+                ><b
+                  >{{ "GLOBAL.documento_identificacion" | translate }}:
+                </b></label
+              >
+
+              <span class="form-control">
+                {{ generacion_recibo.documentId }}
+              </span>
+            </div>
+            <div>
+              <label for=""
+                ><b>{{ "GLOBAL.nombre" | translate }}: </b></label
+              >
+
+              <span class="form-control">
+                {{ generacion_recibo.username }}
+              </span>
+            </div>
+            <div>
+              <label for=""
+                ><b
+                  >{{ "derechos_pecuniarios.proyecto_curricular" | translate }}:
+                </b></label
+              >
+
+              <span class="form-control">
+                {{ generacion_recibo.curricularProgram }}
+              </span>
+            </div>
+            <div>
+              <label for=""
+                ><b
+                  >{{ "derechos_pecuniarios.concepto_recibo" | translate }}:
+                </b></label
+              >
+
+              <span class="form-control">
+                {{ generacion_recibo.concept }}
+              </span>
+            </div>
+            <div>
+              <label for=""
+                ><b>{{ "derechos_pecuniarios.valor" | translate }}: </b></label
+              >
+
+              <span
+                *ngIf="
+                  generacion_recibo.value && generacion_recibo.value.toLowerCase
+                "
+                class="form-control"
+              >
+                {{ generacion_recibo.value }}
+              </span>
+              <span
+                *ngIf="
+                  generacion_recibo.value &&
+                  generacion_recibo.value.toExponential
+                "
+                class="form-control"
+              >
+                {{ formatterPeso.format(generacion_recibo.value) }}
+              </span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
         <button
-          class="btn btn-light border"
-          style="display: grid"
+          mat-flat-button
+          color="accent"
+          *ngIf="gen_recibo"
+          class="margin-y"
           (click)="generar_recibo()"
         >
           {{ "derechos_pecuniarios.generar_recibo" | translate }}
-          <i class="fa fa-barcode fa-5x"></i>
+          <mat-icon>receipt</mat-icon>
         </button>
       </mat-card-content>
-    </div>
+    </mat-card>
+
     <br /><br />
     <div class="text-center" *ngIf="new_pecuniario">
       <button
-        mat-button
+        mat-flat-button
         type="button"
         color="primary"
         class="boton-primary"
