@@ -143,14 +143,14 @@ export class ConsultarSolicitudesDerechosPecuniarios {
       .get('derechos-pecuniarios/solicitudes')
       .subscribe(
         (response: any) => {
-          if (response !== null && response.status === '400') {
+          if (response !== null && response.Status === '400') {
             this.popUpManager.showErrorToast(
               this.translate.instant('derechos_pecuniarios.error')
             );
             this.cargarDatosTabla([]);
           } else if (
-            (response != null && response.status === '404') ||
-            response.data[0] === null
+            (response != null && response.Status === '404') ||
+            response.Data[0] === null
           ) {
             this.popUpManager.showAlert(
               this.translate.instant('GLOBAL.info'),
@@ -158,7 +158,7 @@ export class ConsultarSolicitudesDerechosPecuniarios {
             );
             this.cargarDatosTabla([]);
           } else {
-            const data = <Array<any>>response.data;
+            const data = <Array<any>>response.Data;
             const dataInfo = <Array<any>>[];
             data.forEach((element) => {
               element.FechaCreacion = momentTimezone
