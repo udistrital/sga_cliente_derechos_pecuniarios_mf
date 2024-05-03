@@ -26,6 +26,7 @@ Cliente para la gestión de derechos pecuniarios, parte del Sistema de Gestión 
 - [ts-md5](https://github.com/cotag/ts-md5) 1.2.7
 - [tslib](https://github.com/Microsoft/tslib) 2.3.0
 - [Zone.js](https://github.com/angular/angular/tree/master/packages/zone.js) ~0.13.0
+- [@sweetalert2/themes](https://github.com/sweetalert2/sweetalert2-themes) 5.0.16
 
 
 
@@ -37,7 +38,6 @@ export const environment = {
   assets: '',
   apiUrl: '',
   PARAMETROS_SERVICE: '',
-  SGA_MID_SERVICE: '',
   NUXEO_SERVICE:'',
   PSE_SERVICE: '',
   TERCEROS_SERVICE: '',
