@@ -68,7 +68,7 @@ export class ConsultarConceptosComponent implements OnInit {
       .get('derechos-pecuniarios/vigencias/' + this.vigenciaActual)
       .subscribe(
         (response) => {
-          var data: any[] = response.data;
+          var data: any[] = response.Data;
           if (Object.keys(data).length > 0 && Object.keys(data[0]).length > 0) {
             data.forEach((obj) => {
               var concepto = new Concepto();

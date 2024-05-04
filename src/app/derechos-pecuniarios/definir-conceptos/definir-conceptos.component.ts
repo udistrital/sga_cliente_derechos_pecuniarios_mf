@@ -213,7 +213,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
       .get('derechos-pecuniarios/vigencias/' + this.vigenciaActual.value)
       .subscribe(
         (response) => {
-          const data: any[] = response.data;
+          const data: any[] = response.Data;
           if (Object.keys(data).length > 0 && Object.keys(data[0]).length > 0) {
             data.forEach((obj) => {
               const concepto = new Concepto();
