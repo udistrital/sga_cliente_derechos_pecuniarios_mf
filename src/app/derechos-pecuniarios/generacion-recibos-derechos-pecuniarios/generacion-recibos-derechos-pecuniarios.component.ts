@@ -164,8 +164,8 @@ export class GeneracionRecibosDerechosPecuniarios {
         .get('derechos-pecuniarios/personas/' + this.info_persona_id)
         .subscribe(
           async (res: any) => {
-            if (res.success) {
-              const temp = <InfoPersona>res.data;
+            if (res.Success) {
+              const temp = <InfoPersona>res.Data;
               this.info_info_persona = temp;
               const files = [];
             }
@@ -221,19 +221,19 @@ export class GeneracionRecibosDerechosPecuniarios {
         )
         .subscribe(
           (response: any) => {
-            if (!response.success) {
+            if (!response.Success) {
               this.popUpManager.showErrorToast(
                 this.translate.instant('derechos_pecuniarios.error')
               );
               this.cargarDatosTabla([]);
-            } else if (!response.success) {
+            } else if (!response.Success) {
               this.popUpManager.showAlert(
                 this.translate.instant('GLOBAL.info'),
                 this.translate.instant('derechos_pecuniarios.no_recibo')
               );
               this.cargarDatosTabla([]);
             } else {
-              const data = <Array<any>>response.data;
+              const data = <Array<any>>response.Data;
               console.log(response)
               console.log(data)
               const dataInfo = <Array<any>>[];
@@ -352,18 +352,18 @@ export class GeneracionRecibosDerechosPecuniarios {
               .post('derechos-pecuniarios/derechos', recibo)
               .subscribe(
                 (response: any) => {
-                  if (response.status === 200) {
+                  if (response.Status === 200) {
                     this.loadInfoRecibos();
                     this.popUpManager.showSuccessAlert(
                       this.translate.instant('recibo_pago.generado')
                     );
                     this.new_pecuniario = false;
                     this.gen_recibo = false;
-                  } else if (response.status === 204) {
+                  } else if (response.Status === 204) {
                     this.popUpManager.showErrorAlert(
                       this.translate.instant('recibo_pago.recibo_duplicado')
                     );
-                  } else if (response.status === 404) {
+                  } else if (response.Status === 404) {
                     this.popUpManager.showErrorToast(
                       this.translate.instant('recibo_pago.no_generado')
                     );
@@ -506,7 +506,7 @@ export class GeneracionRecibosDerechosPecuniarios {
       .get('derechos-pecuniarios/vigencias/' + this.vigenciaActual)
       .subscribe(
         (response) => {
-          const data: any[] = response.data;
+          const data: any[] = response.Data;
           if (Object.keys(data).length > 0 && Object.keys(data[0]).length > 0) {
             data.forEach((obj) => {
               // 40 -> CERTIFICADO DE NOTAS
@@ -627,14 +627,14 @@ export class GeneracionRecibosDerechosPecuniarios {
         .post('derechos-pecuniarios/solicitudes', data)
         .subscribe(
           (response: any) => {
-            if (response.status === '200') {
+            if (response.Status === '200') {
               this.loadInfoRecibos();
               this.popUpManager.showSuccessAlert(
                 this.translate.instant(
                   'derechos_pecuniarios.solicitud_generada'
                 )
               );
-            } else if (response.status === '400') {
+            } else if (response.Status === '400') {
               this.popUpManager.showErrorToast(
                 this.translate.instant(
                   'derechos_pecuniarios.error_solicitud_generada'
