@@ -16,8 +16,12 @@ const routes: Routes = [{
     component: DerechosPecuniariosComponent,
     children: [
         {
-            path: 'consultar-conceptos',
+            path: 'conceptos',
             component: ConsultarConceptosComponent,
+        },
+        {
+            path: 'conceptos/definir',
+            component: DefinirConceptosComponent,
         },
         {
             path: 'crud-derechos-pecuniarios',
@@ -27,20 +31,17 @@ const routes: Routes = [{
             path: 'copiar-conceptos',
             component: CopiarConceptosComponent,
         },
+        
         {
-            path: 'definir-conceptos',
-            component: DefinirConceptosComponent,
-        },
-        {
-            path: 'list-derechos-pecuniarios',
+            path: 'lista',
             component: ListDerechosPecuniariosComponent,
         },
         {
-            path: 'generacion-recibos-derechos-pecuniarios',
+            path: 'generar-recibo',
             component: GeneracionRecibosDerechosPecuniarios,
         },
         {
-            path: 'consultar-solicitudes',
+            path: 'solicitudes',
             component: ConsultarSolicitudesDerechosPecuniarios,
         }
     ],
