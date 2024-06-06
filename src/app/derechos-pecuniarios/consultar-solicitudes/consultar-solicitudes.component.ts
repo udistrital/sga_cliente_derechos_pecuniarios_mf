@@ -11,7 +11,6 @@ import { InstitucionEnfasis } from 'src/data/models/institucion_enfasis';
 import { UserService } from 'src/data/services/users.service';
 import { PopUpManager } from 'src/app/managers/popup_manager';
 import { NewNuxeoService } from 'src/data/services/new_nuxeo.service';
-import { ImplicitAutenticationService } from 'src/data/services/implicit_autentication.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -73,13 +72,14 @@ export class ConsultarSolicitudesDerechosPecuniarios {
     private userService: UserService,
     private popUpManager: PopUpManager,
     private nuxeo: NewNuxeoService,
-    private autenticationService: ImplicitAutenticationService,
     private sgaDerechoPecunarioMidService: SgaDerechoPecunarioMidService,
     private translate: TranslateService,
     private documentoService: DocumentoService,
     private builder: FormBuilder,
     private matDialog: MatDialog
-  ) {
+  ) {}
+
+  async ngOnInit() {
     this.nombresColumnas['Id'] = 'derechos_pecuniarios.id';
     this.nombresColumnas['FechaCreacion'] =
       'derechos_pecuniarios.fecha_generacion';
@@ -95,7 +95,7 @@ export class ConsultarSolicitudesDerechosPecuniarios {
       this.createTable();
     });
 
-    this.loadInfoPersona();
+    await this.loadInfoPersona();
     this.createTable();
 
     this.formGestion = this.builder.group({
@@ -110,17 +110,20 @@ export class ConsultarSolicitudesDerechosPecuniarios {
   public async loadInfoPersona(): Promise<void> {
     this.userService.getUser().subscribe((user) => {
       this.userResponse = user;
+      console.log(this.userResponse);
     });
 
-    this.autenticationService.getRole().then((rol: Array<String>) => {
-      if (
-        rol.includes('COORDINADOR') ||
-        rol.includes('COORDINADOR_PREGADO') ||
-        rol.includes('COORDINADOR_POSGRADO')
-      ) {
-        this.userResponse.Rol = 'Coordinador';
-      }
-    });
+    this.userService
+      .esAutorizado([
+        'COORDINADOR',
+        'COORDINADOR_PREGADO',
+        'COORDINADOR_POSGRADO',
+      ])
+      .then((res) => {
+        if (res) {
+          this.userResponse.Rol = 'Coordinador';
+        }
+      });
   }
 
   createTable() {
