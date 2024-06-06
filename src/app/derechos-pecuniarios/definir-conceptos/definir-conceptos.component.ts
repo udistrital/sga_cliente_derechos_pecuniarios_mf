@@ -13,11 +13,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SgaDerechoPecunarioMidService } from 'src/data/services/sga_derecho_pecunario_mid.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'definir-conceptos',
   templateUrl: './definir-conceptos.component.html',
-  styleUrls: ['../derechos-pecuniarios.component.scss'],
+  styleUrls: ['./definir-conceptos.component.scss'],
 })
 export class DefinirConceptosComponent implements OnInit, OnChanges {
   vigencias: any[];
@@ -39,11 +40,11 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   displayedColumns: string[] = [
-    'Id',
     'Codigo',
     'Nombre',
     'Factor',
     'Costo',
+    'Id',
     'acciones',
   ];
   nombresColumnas = [];
@@ -56,7 +57,8 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
     private dialog: MatDialog,
     private parametrosService: ParametrosService,
     private activatedRoute: ActivatedRoute,
-    private sgaDerechoPecunarioMidService: SgaDerechoPecunarioMidService
+    private sgaDerechoPecunarioMidService: SgaDerechoPecunarioMidService,
+    private cdr: ChangeDetectorRef
   ) {
     this.vigenciaActual = new FormControl('');
     this.nombresColumnas['Id'] = 'derechos_pecuniarios.id';
@@ -92,12 +94,13 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
     this.cargarDatosTabla(this.datosCargados);
   }
 
-  cargarDatosTabla(datosCargados: Concepto[]) {
-    this.mostrarTabla = datosCargados.length > 0;
-
+  async cargarDatosTabla(datosCargados: Concepto[]) {
     this.dataSource = new MatTableDataSource(datosCargados);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, 200);
+    this.mostrarTabla = datosCargados.length > 0;
   }
 
   calcularValores() {
@@ -174,6 +177,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
   }
 
   cargarSalario() {
+    this.mostrarTabla = false;
     this.parametrosService
       .get(
         'parametro_periodo?limit=0&query=PeriodoId__Id:' +
