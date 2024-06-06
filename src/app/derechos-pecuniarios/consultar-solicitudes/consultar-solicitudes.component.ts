@@ -110,7 +110,6 @@ export class ConsultarSolicitudesDerechosPecuniarios {
   public async loadInfoPersona(): Promise<void> {
     this.userService.getUser().subscribe((user) => {
       this.userResponse = user;
-      console.log(this.userResponse);
     });
 
     this.userService

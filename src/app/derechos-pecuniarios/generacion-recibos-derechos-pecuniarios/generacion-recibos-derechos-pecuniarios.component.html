@@ -13,9 +13,9 @@
         >
         <span class="form-control">
           {{
-            userData
-              ? userData.NombreCompleto
-                ? userData.NombreCompleto
+            tercero
+              ? tercero.NombreCompleto
+                ? tercero.NombreCompleto
                 : ""
               : ""
           }}
@@ -27,7 +27,7 @@
         >
 
         <span class="form-control">
-          {{ userData ? (userData.Documento ? userData.Documento : "") : "" }}
+          {{ tercero ? (tercero.NumeroIdentificacion ? tercero.NumeroIdentificacion : "") : "" }}
         </span>
       </div>
     </div>

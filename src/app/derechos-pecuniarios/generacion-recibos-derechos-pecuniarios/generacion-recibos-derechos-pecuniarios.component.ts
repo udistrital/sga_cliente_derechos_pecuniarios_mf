@@ -52,7 +52,7 @@ export class GeneracionRecibosDerechosPecuniarios {
   recibo_generado: any;
   recibos_pendientes: number;
   parametros_pago: any;
-  userData: any = null;
+  tercero: any = null;
 
   arr_proyecto: InstitucionEnfasis[] = [];
   proyectos = [];
@@ -149,10 +149,8 @@ export class GeneracionRecibosDerechosPecuniarios {
     );
 
     this.info_persona_id = await this.userService.getPersonaId();
-    this.userService.getUser().subscribe((user) => {
-      this.userData = user;
-    });
-    this.loadInfoPersona();
+    this.tercero =  await this.userService.getTercero();
+    await this.loadInfoPersona();
   }
 
   return() {
@@ -167,7 +165,6 @@ export class GeneracionRecibosDerechosPecuniarios {
 
   public async loadInfoPersona(): Promise<void> {
     this.info_persona_id = await this.userService.getPersonaId();
-    console.log(this.info_persona_id);
     if (
       this.info_persona_id !== undefined &&
       this.info_persona_id !== 0 &&
@@ -234,8 +231,6 @@ export class GeneracionRecibosDerechosPecuniarios {
               this.cargarDatosTabla([]);
             } else {
               const data = <Array<any>>response.Data;
-              console.log(response);
-              console.log(data);
               const dataInfo = <Array<any>>[];
               this.recibos_pendientes = 0;
               data.forEach((element) => {
@@ -559,8 +554,8 @@ export class GeneracionRecibosDerechosPecuniarios {
   }
 
   nuevoDerecho() {
-    this.generacion_recibo.username = this.userData.NombreCompleto;
-    this.generacion_recibo.documentId = this.userData.Documento;
+    this.generacion_recibo.username = this.tercero.NombreCompleto;
+    this.generacion_recibo.documentId = this.tercero.NumeroIdentificacion;
     this.new_pecuniario = true;
   }
 
@@ -621,7 +616,6 @@ export class GeneracionRecibosDerechosPecuniarios {
   }
 
   solicitar(data: any) {
-    console.log(data);
     if (data.comprobanteRecibo) {
       this.sgaDerechoPecunarioMidService
         .post('derechos-pecuniarios/solicitudes', data)

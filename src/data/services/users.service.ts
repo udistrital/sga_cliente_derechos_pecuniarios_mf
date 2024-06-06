@@ -1,10 +1,10 @@
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { RequestManager } from 'src/app/managers/request_manager';
 import { decrypt } from 'src/utils/util-encrypt';
+import { ApiResponse } from '../models/api-response.interface';
 
-const path = environment.TERCEROS_SERVICE;
 
 @Injectable({
   providedIn: 'root',
@@ -104,5 +104,25 @@ export class UserService {
 
   public getPeriodo(): number {
     return parseInt(window.localStorage.getItem('IdPeriodo')!, 10);
+  }
+
+  public async getTercero(id: string = null): Promise<ApiResponse<any>> {
+    const personaId = id ? id : await this.getPersonaId();
+    return new Promise( (resolver, reject ) => {
+      this.requestManager.setPath('TERCEROS_MID_SERVICE');
+      this.requestManager.get(`personas/${personaId}`).subscribe(
+        (response: ApiResponse<any>) => {
+          if(response.Success){
+            resolver(response.Data);
+          }else {
+            reject(response.Message);
+          }
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    
+    });
   }
 }
