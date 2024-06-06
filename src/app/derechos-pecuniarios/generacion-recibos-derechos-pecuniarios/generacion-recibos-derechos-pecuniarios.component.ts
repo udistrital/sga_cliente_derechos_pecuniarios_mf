@@ -107,8 +107,10 @@ export class GeneracionRecibosDerechosPecuniarios {
     private userService: UserService,
     private parametrosService: ParametrosService,
     private sgaDerechoPecunarioMidService: SgaDerechoPecunarioMidService,
-    private sgaInscripcionMidService:SgaInscripcionMidService
-  ) {
+    private sgaInscripcionMidService: SgaInscripcionMidService
+  ) {}
+
+  async ngOnInit() {
     this.nombresColumnas['Periodo'] = 'derechos_pecuniarios.periodo';
     this.nombresColumnas['Id'] = 'derechos_pecuniarios.id';
     this.nombresColumnas['FechaCreacion'] =
@@ -134,9 +136,20 @@ export class GeneracionRecibosDerechosPecuniarios {
       concept: '* Concepto del derecho pecuniario elegido',
       value: '* Valor del derecho elegido',
     };
+    this.parametros_pago = {
+      recibo: '',
+      REFERENCIA: '',
+      NUM_DOC_IDEN: '',
+      TIPO_DOC_IDEN: '',
+    };
 
-    this.info_persona_id = this.userService.getPersonaId();
-    this.userService.tercero$.subscribe((user) => {
+    this.selectedProject = parseInt(
+      sessionStorage.getItem('ProgramaAcademicoId'),
+      10
+    );
+
+    this.info_persona_id = await this.userService.getPersonaId();
+    this.userService.getUser().subscribe((user) => {
       this.userData = user;
     });
     this.loadInfoPersona();
@@ -154,6 +167,7 @@ export class GeneracionRecibosDerechosPecuniarios {
 
   public async loadInfoPersona(): Promise<void> {
     this.info_persona_id = await this.userService.getPersonaId();
+    console.log(this.info_persona_id);
     if (
       this.info_persona_id !== undefined &&
       this.info_persona_id !== 0 &&
@@ -195,20 +209,6 @@ export class GeneracionRecibosDerechosPecuniarios {
     this.translate.use(language);
   }
 
-  ngOnInit() {
-    this.parametros_pago = {
-      recibo: '',
-      REFERENCIA: '',
-      NUM_DOC_IDEN: '',
-      TIPO_DOC_IDEN: '',
-    };
-
-    this.selectedProject = parseInt(
-      sessionStorage.getItem('ProgramaAcademicoId'),
-      10
-    );
-  }
-
   async loadInfoRecibos() {
     // Función del MID que retorna el estado del recibo
     const PeriodoActual = localStorage.getItem('IdPeriodo');
@@ -234,8 +234,8 @@ export class GeneracionRecibosDerechosPecuniarios {
               this.cargarDatosTabla([]);
             } else {
               const data = <Array<any>>response.Data;
-              console.log(response)
-              console.log(data)
+              console.log(response);
+              console.log(data);
               const dataInfo = <Array<any>>[];
               this.recibos_pendientes = 0;
               data.forEach((element) => {
@@ -621,7 +621,7 @@ export class GeneracionRecibosDerechosPecuniarios {
   }
 
   solicitar(data: any) {
-    console.log(data)
+    console.log(data);
     if (data.comprobanteRecibo) {
       this.sgaDerechoPecunarioMidService
         .post('derechos-pecuniarios/solicitudes', data)

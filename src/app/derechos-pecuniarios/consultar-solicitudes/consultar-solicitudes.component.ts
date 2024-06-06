@@ -108,9 +108,8 @@ export class ConsultarSolicitudesDerechosPecuniarios {
   }
 
   public async loadInfoPersona(): Promise<void> {
-    this.userService.tercero$.subscribe((user) => {
+    this.userService.getUser().subscribe((user) => {
       this.userResponse = user;
-      // this.userResponse.Rol = 'Coordinador'
     });
 
     this.autenticationService.getRole().then((rol: Array<String>) => {
