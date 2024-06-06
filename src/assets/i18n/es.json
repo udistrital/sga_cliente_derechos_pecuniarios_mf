@@ -129,7 +129,8 @@
         "solicitud_generada": "La solicitud se ha generado con éxito.",
         "error_solicitud_generada": "La solicitud no pudo ser generada.",
         "error_respuesta_solicitud": "No fue posible dar respuesta a la solicitud.",
-        "enviar_respuesta": "Enviar respuesta"
+        "enviar_respuesta": "Enviar respuesta",
+        "titulo_asignar_valores": "Asignar valores a los conceptos de los derechos pecuniarios"
     },
     "admision": {
         "revisar_docs": "Revisión de documentos",

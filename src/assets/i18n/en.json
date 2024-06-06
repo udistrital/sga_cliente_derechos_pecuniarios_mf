@@ -126,7 +126,8 @@
         "solicitud_generada": "The request has been generated successfully.",
         "error_solicitud_generada": "Request could not be generated.",
         "error_respuesta_solicitud": "It was not possible to respond to the request.",
-        "enviar_respuesta": "Send response"
+        "enviar_respuesta": "Send response",
+        "titulo_asignar_valores": "Assign values to financial entitlements"
     },
     "admision": {
         "revisar_docs": "Review documents",
