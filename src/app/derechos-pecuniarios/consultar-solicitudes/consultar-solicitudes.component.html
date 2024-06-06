@@ -17,7 +17,7 @@
       </mat-card-header>
       <mat-card-content>
         <br />
-        <div *ngIf="!new_pecuniario" class="table mat-elevation-z8">
+        <div *ngIf="!new_pecuniario" >
           <table mat-table [dataSource]="dataSource" matSort>
             <ng-container
               *ngFor="let columna of displayedColumns"
