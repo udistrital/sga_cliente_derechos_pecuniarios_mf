@@ -11,7 +11,7 @@ import { SgaDerechoPecunarioMidService } from 'src/data/services/sga_derecho_pec
 @Component({
   selector: 'consultar-conceptos',
   templateUrl: './consultar-conceptos.component.html',
-  styleUrls: ['../derechos-pecuniarios.component.scss'],
+  styleUrls: ['./consultar-conceptos.component.scss'],
 })
 export class ConsultarConceptosComponent implements OnInit {
   vigencias: any[];
