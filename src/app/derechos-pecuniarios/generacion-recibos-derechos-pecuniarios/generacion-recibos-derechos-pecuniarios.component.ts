@@ -75,7 +75,6 @@ export class GeneracionRecibosDerechosPecuniarios {
 
   displayedColumns: string[] = [
     'Periodo',
-    'Id',
     'FechaCreacion',
     'Valor',
     'Concepto',

@@ -51,7 +51,6 @@ export class ConsultarSolicitudesDerechosPecuniarios {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   displayedColumns: string[] = [
-    'Id',
     'FechaCreacion',
     'Codigo',
     'Nombre',

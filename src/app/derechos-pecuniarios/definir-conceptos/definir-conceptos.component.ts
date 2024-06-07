@@ -44,7 +44,6 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
     'Nombre',
     'Factor',
     'Costo',
-    'Id',
     'acciones',
   ];
   nombresColumnas = [];
