@@ -375,7 +375,6 @@ export class GeneracionRecibosDerechosPecuniarios {
   }
 
   descargarReciboPago(data) {
-    console.log("LA DATA --> ", data)
     if (this.info_info_persona != null) {
       this.selectedProject = parseInt(
         sessionStorage.getItem('ProgramaAcademicoId'),
@@ -462,9 +461,7 @@ export class GeneracionRecibosDerechosPecuniarios {
             const r = <any>res;
             if (res !== null && r.Status === '200') {
               const periodos = <any[]>res['Data'];
-              console.log("PERIODOS --> ", periodos)
               periodos.forEach((element) => {
-                console.log("PERIODO --> ", this.periodo)
                 this.periodo = element;
                 window.localStorage.setItem(
                   'IdPeriodo',
