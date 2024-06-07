@@ -17,7 +17,7 @@
       </mat-card-header>
       <mat-card-content>
         <br />
-        <div *ngIf="!new_pecuniario" >
+        <div *ngIf="!new_pecuniario" class="table">
           <table mat-table [dataSource]="dataSource" matSort>
             <ng-container
               *ngFor="let columna of displayedColumns"
