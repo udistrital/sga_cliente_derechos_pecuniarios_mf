@@ -13,9 +13,9 @@
         >
         <span class="form-control">
           {{
-            userData
-              ? userData.NombreCompleto
-                ? userData.NombreCompleto
+            tercero
+              ? tercero.NombreCompleto
+                ? tercero.NombreCompleto
                 : ""
               : ""
           }}
@@ -27,7 +27,13 @@
         >
 
         <span class="form-control">
-          {{ userData ? (userData.Documento ? userData.Documento : "") : "" }}
+          {{
+            tercero
+              ? tercero.NumeroIdentificacion
+                ? tercero.NumeroIdentificacion
+                : ""
+              : ""
+          }}
         </span>
       </div>
     </div>
@@ -37,7 +43,7 @@
       <h3>
         {{ "derechos_pecuniarios.recibos_generados" | translate }}
       </h3>
-      <div class="table mat-elevation-z8 margin-y">
+      <div class="table margin-y">
         <table mat-table [dataSource]="dataSource" matSort>
           <ng-container
             *ngFor="let columna of displayedColumns"
@@ -222,85 +228,80 @@
 
         <mat-card>
           <mat-card-header>
-            <mat-card-title>
-              {{ "derechos_pecuniarios.verificar_datos" | translate }}
-            </mat-card-title>
+            <mat-card-title>{{
+              "derechos_pecuniarios.verificar_datos" | translate
+            }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <br />
-            <div>
-              <label for=""
-                ><b>{{ "derechos_pecuniarios.codigo" | translate }}: </b></label
+            <div *ngFor="let field of generacion_recibo_fields">
+              <label
+                ><b>{{ field.label | translate }}: </b></label
               >
-
-              <span class="form-control">
-                {{ generacion_recibo.code }}
-              </span>
+              <span class="form-control">{{ field.value }}</span>
             </div>
-            <div>
-              <label for=""
-                ><b
-                  >{{ "GLOBAL.documento_identificacion" | translate }}:
-                </b></label
-              >
-
-              <span class="form-control">
-                {{ generacion_recibo.documentId }}
-              </span>
-            </div>
-            <div>
-              <label for=""
-                ><b>{{ "GLOBAL.nombre" | translate }}: </b></label
-              >
-
-              <span class="form-control">
-                {{ generacion_recibo.username }}
-              </span>
-            </div>
-            <div>
-              <label for=""
-                ><b
-                  >{{ "derechos_pecuniarios.proyecto_curricular" | translate }}:
-                </b></label
-              >
-
-              <span class="form-control">
-                {{ generacion_recibo.curricularProgram }}
-              </span>
-            </div>
-            <div>
-              <label for=""
-                ><b
-                  >{{ "derechos_pecuniarios.concepto_recibo" | translate }}:
-                </b></label
-              >
-
-              <span class="form-control">
-                {{ generacion_recibo.concept }}
-              </span>
-            </div>
-            <div>
-              <label for=""
-                ><b>{{ "derechos_pecuniarios.valor" | translate }}: </b></label
-              >
-
-              <span
-                *ngIf="
-                  generacion_recibo.value && generacion_recibo.value.toLowerCase
-                "
-                class="form-control"
-              >
-                {{ generacion_recibo.value }}
-              </span>
-              <span
-                *ngIf="
-                  generacion_recibo.value &&
-                  generacion_recibo.value.toExponential
-                "
-                class="form-control"
-              >
-                {{ formatterPeso.format(generacion_recibo.value) }}
-              </span>
+            <div
+              *ngIf="
+                generacion_recibo.value && generacion_recibo.value.toExponential
+              "
+            >
+              <div>
+                <label
+                  ><b
+                    >{{ "derechos_pecuniarios.codigo" | translate }}:
+                  </b></label
+                >
+                <span class="form-control">{{ generacion_recibo.code }}</span>
+              </div>
+              <div>
+                <label
+                  ><b
+                    >{{ "GLOBAL.documento_identificacion" | translate }}:
+                  </b></label
+                >
+                <span class="form-control">{{
+                  generacion_recibo.documentId
+                }}</span>
+              </div>
+              <div>
+                <label
+                  ><b>{{ "GLOBAL.nombre" | translate }}: </b></label
+                >
+                <span class="form-control">{{
+                  generacion_recibo.username
+                }}</span>
+              </div>
+              <div>
+                <label
+                  ><b
+                    >{{
+                      "derechos_pecuniarios.proyecto_curricular" | translate
+                    }}:
+                  </b></label
+                >
+                <span class="form-control">{{
+                  generacion_recibo.curricularProgram
+                }}</span>
+              </div>
+              <div>
+                <label
+                  ><b
+                    >{{ "derechos_pecuniarios.concepto_recibo" | translate }}:
+                  </b></label
+                >
+                <span class="form-control">{{
+                  generacion_recibo.concept
+                }}</span>
+              </div>
+              <div>
+                <label
+                  ><b
+                    >{{ "derechos_pecuniarios.valor" | translate }}:
+                  </b></label
+                >
+                <span class="form-control">{{
+                  formatearPrecio(generacion_recibo.value)
+                }}</span>
+              </div>
             </div>
           </mat-card-content>
         </mat-card>

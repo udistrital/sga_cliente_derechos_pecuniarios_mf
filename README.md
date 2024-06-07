@@ -40,7 +40,7 @@ export const environment = {
   PARAMETROS_SERVICE: '',
   NUXEO_SERVICE:'',
   PSE_SERVICE: '',
-  TERCEROS_SERVICE: '',
+  TERCEROS_MID_SERVICE: '',
   DOCUMENTO_SERVICE: '',
   TOKEN: {
     AUTORIZATION_URL: '',

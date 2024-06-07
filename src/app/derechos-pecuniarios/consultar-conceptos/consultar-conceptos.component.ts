@@ -11,7 +11,7 @@ import { SgaDerechoPecunarioMidService } from 'src/data/services/sga_derecho_pec
 @Component({
   selector: 'consultar-conceptos',
   templateUrl: './consultar-conceptos.component.html',
-  styleUrls: ['../derechos-pecuniarios.component.scss'],
+  styleUrls: ['./consultar-conceptos.component.scss'],
 })
 export class ConsultarConceptosComponent implements OnInit {
   vigencias: any[];
@@ -55,15 +55,11 @@ export class ConsultarConceptosComponent implements OnInit {
   }
 
   cargarDatos(event: any) {
+    this.mostrarTabla = false;
     this.cargando = true;
     this.vigenciaActual = event.value;
     let datosCargados = [];
     this.mostrarTabla = false;
-    console.log(
-      'THIS IS A PATH',
-      'derechos-pecuniarios/' + this.vigenciaActual
-    );
-
     this.sgaDerechoPecunarioMidService
       .get('derechos-pecuniarios/vigencias/' + this.vigenciaActual)
       .subscribe(
@@ -84,8 +80,10 @@ export class ConsultarConceptosComponent implements OnInit {
             });
 
             this.dataSource = new MatTableDataSource(datosCargados);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
+            setTimeout(() => {
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            }, 100);
             this.mostrarTabla = datosCargados.length > 0;
           } else {
             this.popUpManager.showAlert(
