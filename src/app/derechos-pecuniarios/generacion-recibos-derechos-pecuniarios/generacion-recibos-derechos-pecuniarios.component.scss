@@ -1,4 +1,4 @@
-.form-control {
-    min-height: 35px;
-    height: auto;
+//HOVER SOBRE LAS FILAS
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: var(--color100);
 }
