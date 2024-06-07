@@ -1,11 +1,16 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      {{ "derechos_pecuniarios.titulo" | translate }}
+      <ng-container *ngIf="mostrarCalcular">
+        {{ "derechos_pecuniarios.titulo_asignar_valores" | translate }}
+      </ng-container>
+      <ng-container *ngIf="!mostrarCalcular">
+        {{ "derechos_pecuniarios.titulo" | translate }}
+      </ng-container>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div [ngClass]="mostrarCalcular ? 'form-grid3' : 'form-grid2'">
+    <div class="form-grid2">
       <div class="form-col1">
         <mat-form-field class="form-field">
           <mat-label>{{
@@ -19,8 +24,9 @@
             <mat-option
               *ngFor="let vigencia of vigencias"
               [value]="vigencia.Id"
-              >{{ vigencia.Nombre }}</mat-option
             >
+              {{ vigencia.Nombre }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -38,53 +44,61 @@
           />
         </mat-form-field>
       </div>
-      <div
-        *ngIf="mostrarCalcular"
-        class="form-col1"
-        style="display: flex; align-items: center"
-      >
-        <button
-          mat-flat-button
-          type="button"
-          color="accent"
-          class="form-field"
-          (click)="calcularValores()"
-        >
-          {{ "derechos_pecuniarios.boton_calcular" | translate }}
-        </button>
-      </div>
     </div>
 
-    <mat-card>
+    <mat-card *ngIf="vigenciaActual && mostrarTabla">
       <mat-card-header>
-        <mat-card-title [hidden]="vigenciaActual == null || !mostrarTabla">{{
-          "derechos_pecuniarios.conceptos" | translate
-        }}</mat-card-title>
+        <mat-card-title>
+          {{ "derechos_pecuniarios.conceptos" | translate }}
+        </mat-card-title>
       </mat-card-header>
-      <mat-card-content [hidden]="vigenciaActual == null || !mostrarTabla">
-        <div
-          style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center"
-        >
-          <mat-form-field style="flex: 1 1 300px">
-            <mat-label>{{ "GLOBAL.buscar" | translate }}</mat-label>
-            <input
-              matInput
-              (keyup)="applyFilter($event.target.value)"
-              placeholder="{{ 'GLOBAL.buscar' | translate }}"
-            />
-          </mat-form-field>
+      <mat-card-content>
+        <mat-form-field class="form-field">
+          <mat-label>{{ "GLOBAL.buscar" | translate }}</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event.target.value)"
+            placeholder="{{ 'GLOBAL.buscar' | translate }}"
+          />
+        </mat-form-field>
+        <mat-toolbar class="toolbar">
+          <div *ngIf="mostrarCalcular" class="margin-y">
+            <ng-container *ngIf="!guardable">
+              <button
+                mat-flat-button
+                type="button"
+                color="accent"
+                class="form-field"
+                (click)="calcularValores()"
+              >
+                {{ "derechos_pecuniarios.boton_calcular" | translate }}
+              </button>
+            </ng-container>
+            <ng-container *ngIf="guardable">
+              <button
+                mat-flat-button
+                class="form-field"
+                type="button"
+                color="accent"
+                (click)="guardarValores()"
+                [disabled]="!guardable"
+              >
+                {{ "derechos_pecuniarios.boton_guardar" | translate }}
+              </button>
+            </ng-container>
+          </div>
           <button
-            mat-flat-button
-            color="accent"
-            matTooltip="{{ 'derechos_pecuniarios.tooltip_crear' | translate }}"
+            *ngIf="!mostrarCalcular"
+            mat-icon-button
             (click)="agregarConcepto()"
+            matTooltip="{{ 'derechos_pecuniarios.tooltip_crear' | translate }}"
+            color="accent"
           >
-            <mat-icon class="add-icon">add</mat-icon>
-            {{ "derechos_pecuniarios.tooltip_crear" | translate }}
+            <mat-icon>add</mat-icon>
           </button>
-        </div>
+        </mat-toolbar>
 
-        <div class="table mat-elevation-z8">
+        <div class="table">
           <table mat-table [dataSource]="dataSource" matSort>
             <ng-container
               *ngFor="let columna of displayedColumns"
@@ -109,28 +123,31 @@
                 >
                   {{ fila[columna] }}
                 </ng-container>
-
                 <ng-container *ngIf="columna === 'Costo'">
                   {{ formatearPrecio(fila[columna]) }}
                 </ng-container>
-
-                <ng-container *ngIf="columna === 'acciones'">
+                <ng-container *ngIf="columna === 'acciones'" sticky>
                   <button
                     mat-icon-button
+                    [matMenuTriggerFor]="menu"
                     color="accent"
-                    matTooltip="{{ 'GLOBAL.editar' | translate }}"
-                    (click)="editarConcepto(fila)"
+                    aria-label="{{ 'GLOBAL.acciones' | translate }}"
+                    matTooltip="{{ 'GLOBAL.acciones' | translate }}"
                   >
-                    <mat-icon>edit_outline</mat-icon>
+                    <mat-icon>more_vert</mat-icon>
                   </button>
-                  <button
-                    mat-icon-button
-                    color="warn"
-                    matTooltip="{{ 'GLOBAL.eliminar' | translate }}"
-                    (click)="inactivarConcepto(fila)"
-                  >
-                    <mat-icon>delete_outline</mat-icon>
-                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="editarConcepto(fila)">
+                      <mat-icon color="accent">edit</mat-icon>
+                      <span>{{ "GLOBAL.editar" | translate }}</span>
+                    </button>
+                    <button mat-menu-item (click)="inactivarConcepto(fila)">
+                      <mat-icon style="color: var(--danger-base)"
+                        >delete</mat-icon
+                      >
+                      <span>{{ "GLOBAL.eliminar" | translate }}</span>
+                    </button>
+                  </mat-menu>
                 </ng-container>
               </td>
             </ng-container>
@@ -144,19 +161,6 @@
             [pageSizeOptions]="[]"
             showFirstLastButtons
           ></mat-paginator>
-        </div>
-
-        <div *ngIf="mostrarCalcular" class="margin-y">
-          <button
-            mat-flat-button
-            class="form-field"
-            type="button"
-            color="accent"
-            (click)="guardarValores()"
-            [disabled]="!guardable"
-          >
-            {{ "derechos_pecuniarios.boton_guardar" | translate }}
-          </button>
         </div>
       </mat-card-content>
     </mat-card>
