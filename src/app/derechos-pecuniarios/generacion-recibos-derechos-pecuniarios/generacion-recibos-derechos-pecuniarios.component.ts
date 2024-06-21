@@ -107,7 +107,7 @@ export class GeneracionRecibosDerechosPecuniarios {
     private parametrosService: ParametrosService,
     private sgaDerechoPecunarioMidService: SgaDerechoPecunarioMidService,
     private sgaInscripcionMidService: SgaInscripcionMidService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.nombresColumnas['Periodo'] = 'derechos_pecuniarios.periodo';
@@ -148,7 +148,7 @@ export class GeneracionRecibosDerechosPecuniarios {
     );
 
     this.info_persona_id = await this.userService.getPersonaId();
-    this.tercero =  await this.userService.getTercero();
+    this.tercero = await this.userService.getTercero();
     await this.loadInfoPersona();
   }
 
@@ -186,8 +186,8 @@ export class GeneracionRecibosDerechosPecuniarios {
             this.popUpManager.showErrorAlert(
               this.translate.instant('ERROR.' + error.status),
               this.translate.instant('GLOBAL.cargar') +
-                '-' +
-                this.translate.instant('GLOBAL.info_persona')
+              '-' +
+              this.translate.instant('GLOBAL.info_persona')
             );
           }
         );
@@ -333,7 +333,7 @@ export class GeneracionRecibosDerechosPecuniarios {
               DerechoPecuniarioId: this.generacion_recibo.DerechoPecuniarioId,
               CodigoEstudiante: this.generacion_recibo.CodigoEstudiante,
               Year: this.periodo.Year,
-              Periodo: this.periodo.Id,
+              Periodo: this.periodo.Ciclo,
               FechaPago: '',
             };
             const fecha = new Date();
@@ -450,34 +450,64 @@ export class GeneracionRecibosDerechosPecuniarios {
 
   cargarPeriodo() {
     this.vigencias = [];
+    let periodosAcademicos: any = [];
 
     return new Promise((resolve, reject) => {
-      this.parametrosService
-        .get(
-          'periodo?query=Activo:true,CodigoAbreviacion:VG&sortby=Id&order=asc&limit=0'
-        )
-        .subscribe(
-          (res) => {
-            const r = <any>res;
-            if (res !== null && r.Status === '200') {
-              const periodos = <any[]>res['Data'];
-              periodos.forEach((element) => {
-                this.periodo = element;
-                window.localStorage.setItem(
-                  'IdPeriodo',
-                  String(this.periodo['Id'])
-                );
-                this.vigenciaActual = this.periodo.Id;
 
-                resolve(this.periodo);
-                this.vigencias.push(element);
-              });
+      //Se consultan el periodo academico actual
+      this.parametrosService.get(
+        'periodo?query=Activo:true,CodigoAbreviacion:PA&sortby=Id&order=asc&limit=0'
+      ).subscribe({
+        next: (res) => {
+          if (res.Status == "200" && res.Success == true) {
+            periodosAcademicos = res.Data
+            //Si hay un solo periodo activo se realiza la consulta de la vigencia
+            if (periodosAcademicos.length == 1) {
+              const periodo = periodosAcademicos[0]
+              this.parametrosService
+                .get(
+                `periodo?query=Activo:true,CodigoAbreviacion:VG,Year:${periodo.Year}&sortby=Id&order=asc&limit=0`
+                )
+                .subscribe(
+                  (res) => {
+                    const r = <any>res;
+                    if (res !== null && r.Status === '200') {
+                      const periodos = <any[]>res['Data'];
+                      periodos.forEach((element) => {
+                        this.periodo = element;
+                        window.localStorage.setItem(
+                          'IdPeriodo',
+                          String(this.periodo['Id'])
+                        );
+                        this.vigenciaActual = this.periodo.Id;
+
+                        resolve(this.periodo);
+                        this.vigencias.push(element);
+                      });
+                    }
+                  },
+                  (error: HttpErrorResponse) => {
+                    reject([]);
+                  }
+                );
             }
-          },
-          (error: HttpErrorResponse) => {
-            reject([]);
+          } else {
+            Swal.fire({
+              title: 'Error al cargar el periodo',
+              description: 'Contacta a soporte',
+              icon: 'error'
+            })
           }
-        );
+
+        },
+        error: (e) => {
+          Swal.fire({
+            title: 'Error al cargar el periodo',
+            description: 'Contacta a soporte',
+            icon: 'error'
+          })
+        }
+      })
     });
   }
 
