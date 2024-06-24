@@ -2,6 +2,7 @@ export const environment = {
   production: false,
   assets: 'https://pruebasassets.portaloas.udistrital.edu.co/',
   apiUrl: 'http://localhost:4208/',
+  encryptSecretKey: process.env["NG_APP_KEY"],
   SGA_DERECHO_PECUNARIO_MID: 'http://pruebasapi3.intranetoas.udistrital.edu.co:8544/v1/',
   SGA_INSCRIPCION_MID: 'http://pruebasapi3.intranetoas.udistrital.edu.co:8543/v1/',
   PARAMETROS_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8510/v1/',
