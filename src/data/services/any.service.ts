@@ -48,7 +48,17 @@ export class AnyService {
   }
 
   post(path, endpoint, element) {
-    return this.http.post(path + endpoint, element, httpOptions).pipe(
+    const acces_token = window.localStorage.getItem('access_token');
+    let hOptions = httpOptions;
+    if (acces_token !== null) {
+      hOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${acces_token}`,
+        }),
+      }
+    }
+    return this.http.post(path + endpoint, element, hOptions).pipe(
       catchError(this.handleError),
     );
   }

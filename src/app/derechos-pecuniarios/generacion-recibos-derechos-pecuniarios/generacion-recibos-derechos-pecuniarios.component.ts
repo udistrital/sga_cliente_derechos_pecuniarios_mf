@@ -84,7 +84,6 @@ export class GeneracionRecibosDerechosPecuniarios {
     'Estado',
     'VerRecibo',
     'Pagar',
-    'AdjuntarPago',
     'Solicitar',
     'VerRespuesta',
   ];
@@ -92,7 +91,6 @@ export class GeneracionRecibosDerechosPecuniarios {
   actionColumns: string[] = [
     'VerRecibo',
     'Pagar',
-    'AdjuntarPago',
     'Solicitar',
     'VerRespuesta',
   ];
@@ -123,7 +121,6 @@ export class GeneracionRecibosDerechosPecuniarios {
     this.nombresColumnas['Estado'] = 'derechos_pecuniarios.estado';
     this.nombresColumnas['VerRecibo'] = 'derechos_pecuniarios.ver_recibo';
     this.nombresColumnas['Pagar'] = 'derechos_pecuniarios.pagar';
-    this.nombresColumnas['AdjuntarPago'] = 'derechos_pecuniarios.adjuntar_pago';
     this.nombresColumnas['Solicitar'] = 'derechos_pecuniarios.solicitar';
     this.nombresColumnas['VerRespuesta'] = 'derechos_pecuniarios.ver_respuesta';
 
@@ -247,12 +244,6 @@ export class GeneracionRecibosDerechosPecuniarios {
                   class: 'icon-primary',
                 };
 
-                element.AdjuntarPago = {
-                  icon: 'attach_money',
-                  label: 'Adjuntar',
-                  class: 'icon-primary',
-                };
-
                 element.Solicitar = {
                   icon: 'share',
                   label: 'Solicitar',
@@ -267,7 +258,6 @@ export class GeneracionRecibosDerechosPecuniarios {
                 };
 
                 element.Pagar.disabled = true;
-                element.AdjuntarPago.disabled = true;
                 element.Solicitar.disabled = true;
                 element.VerRespuesta.disabled = true;
 
@@ -277,7 +267,6 @@ export class GeneracionRecibosDerechosPecuniarios {
                     break;
                   case 'Pendiente pago':
                     delete element.Pagar.disabled;
-                    delete element.AdjuntarPago.disabled;
                     break;
                   case 'Ejecutada':
                     delete element.VerRespuesta.disabled;
@@ -466,7 +455,7 @@ export class GeneracionRecibosDerechosPecuniarios {
               const periodo = periodosAcademicos[0]
               this.parametrosService
                 .get(
-                `periodo?query=Activo:true,CodigoAbreviacion:VG,Year:${periodo.Year}&sortby=Id&order=asc&limit=0`
+                  `periodo?query=Activo:true,CodigoAbreviacion:VG,Year:${periodo.Year}&sortby=Id&order=asc&limit=0`
                 )
                 .subscribe(
                   (res) => {
@@ -474,7 +463,7 @@ export class GeneracionRecibosDerechosPecuniarios {
                     if (res !== null && r.Status === '200') {
                       const periodos = <any[]>res['Data'];
                       periodos.forEach((element) => {
-                        this.periodo = element;
+                        this.periodo = periodo;
                         window.localStorage.setItem(
                           'IdPeriodo',
                           String(this.periodo['Id'])
@@ -601,7 +590,12 @@ export class GeneracionRecibosDerechosPecuniarios {
   }
 
   adjuntarPago(data: any) {
-    if (data.Estado === 'Pendiente pago') {
+
+  }
+
+  async solicitar(data: any) {
+    //Se espera la subida del comprobante
+    if (data.Estado === 'Pago') {
       Swal.fire({
         title: 'Adjunte recibo',
         input: 'file',
@@ -613,27 +607,64 @@ export class GeneracionRecibosDerechosPecuniarios {
         if (result.isConfirmed) {
           const comprobanteRecibo = result.value;
 
-          let files: Array<any> = [];
+          // Verificar que el archivo sea un PDF
+          if (comprobanteRecibo && comprobanteRecibo.type === 'application/pdf') {
 
-          let dataAux = data;
-          delete data.Solicitar.disabled;
+            delete data.Solicitar.disabled;
+            const file = {
+              file: comprobanteRecibo,
+              IdDocumento: 58,
+              metadatos: {
+                NombreArchivo: comprobanteRecibo.name,
+                Tipo: 'Archivo',
+                Observaciones: 'Comprobante de pago de derecho pecuniario',
+                'dc:title': comprobanteRecibo.name,
+              },
+              descripcion: comprobanteRecibo.name,
+              nombre: comprobanteRecibo.name,
+              key: 'Documento',
+            };
 
-          const file = {
-            file: this.nuxeo.fileToBase64(comprobanteRecibo),
-            IdTipoDocumento: 58,
-            metadatos: {
-              NombreArchivo: comprobanteRecibo.name,
-              Tipo: 'Archivo',
-              Observaciones: 'Comprobante de pago de derecho pecuniario',
-              'dc:title': comprobanteRecibo.name,
-            },
-            descripcion: comprobanteRecibo.name,
-            nombre: comprobanteRecibo.name,
-            key: 'Documento',
-          };
-          files.push(file);
-          data.comprobanteRecibo = file;
-          data.SolicitanteId = this.info_persona_id;
+            this.nuxeo.UploadFile(file)
+              .then(result => {
+                if (result != null) {
+                  //Si el documento se sube se realiza la creacion de la solicitud
+                  this.sgaDerechoPecunarioMidService
+                    .post('derechos-pecuniarios/solicitudes', data)
+                    .subscribe(
+                      (response: any) => {
+                        if (response.Status === '200') {
+                          this.loadInfoRecibos();
+                          this.popUpManager.showSuccessAlert(
+                            this.translate.instant(
+                              'derechos_pecuniarios.solicitud_generada'
+                            )
+                          );
+                        } else if (response.Status === '400') {
+                          this.popUpManager.showErrorToast(
+                            this.translate.instant(
+                              'derechos_pecuniarios.error_solicitud_generada'
+                            )
+                          );
+                        }
+                      },
+                      (error: HttpErrorResponse) => {
+                        this.popUpManager.showErrorToast(
+                          this.translate.instant(`ERROR.${error.status}`)
+                        );
+                      }
+                    );
+                } else {
+                  Swal.fire('Error', 'No se ha subido el documento', 'error');
+                }
+              })
+              .catch(error => {
+                Swal.fire('Error', 'Ha ocurrido un error inesperado', 'error');
+              });
+
+          } else {
+            Swal.fire('Error', 'Por favor, sube un archivo PDF.', 'error');
+          }
         }
       });
     } else {
@@ -642,35 +673,8 @@ export class GeneracionRecibosDerechosPecuniarios {
         this.translate.instant('derechos_pecuniarios.pago_ya_adjuntado')
       );
     }
-  }
+    if (1 == 1) {
 
-  solicitar(data: any) {
-    if (data.comprobanteRecibo) {
-      this.sgaDerechoPecunarioMidService
-        .post('derechos-pecuniarios/solicitudes', data)
-        .subscribe(
-          (response: any) => {
-            if (response.Status === '200') {
-              this.loadInfoRecibos();
-              this.popUpManager.showSuccessAlert(
-                this.translate.instant(
-                  'derechos_pecuniarios.solicitud_generada'
-                )
-              );
-            } else if (response.Status === '400') {
-              this.popUpManager.showErrorToast(
-                this.translate.instant(
-                  'derechos_pecuniarios.error_solicitud_generada'
-                )
-              );
-            }
-          },
-          (error: HttpErrorResponse) => {
-            this.popUpManager.showErrorToast(
-              this.translate.instant(`ERROR.${error.status}`)
-            );
-          }
-        );
     }
   }
 
