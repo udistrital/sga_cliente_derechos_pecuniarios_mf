@@ -23,6 +23,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SgaDerechoPecunarioMidService } from 'src/data/services/sga_derecho_pecunario_mid.service';
 import { SgaInscripcionMidService } from 'src/data/services/sga_inscripcion_mid.service';
+import { SolicitudesService } from 'src/data/services/solicitudes.service';
 
 @Component({
   selector: 'generacion-recibos-derechos-pecuniarios',
@@ -104,7 +105,8 @@ export class GeneracionRecibosDerechosPecuniarios {
     private userService: UserService,
     private parametrosService: ParametrosService,
     private sgaDerechoPecunarioMidService: SgaDerechoPecunarioMidService,
-    private sgaInscripcionMidService: SgaInscripcionMidService
+    private sgaInscripcionMidService: SgaInscripcionMidService,
+    private solicitudesService: SolicitudesService
   ) { }
 
   async ngOnInit() {
@@ -589,10 +591,6 @@ export class GeneracionRecibosDerechosPecuniarios {
     }
   }
 
-  adjuntarPago(data: any) {
-
-  }
-
   async solicitar(data: any) {
     //Se espera la subida del comprobante
     if (data.Estado === 'Pago') {
@@ -626,14 +624,25 @@ export class GeneracionRecibosDerechosPecuniarios {
             };
 
             this.nuxeo.UploadFile(file)
-              .then(result => {
+              .then((result: any) => {
                 if (result != null) {
+
+                  const fecha = new Date()
+                  const solicitud = {
+                    "EstadoTipoSolicitudId" : {
+                      "Id": 41
+                    },
+                    "Referencia":  `{\"IdComplementarioRecibo\":${data.IdComplementario},\"EnlaceComprobante\": \"${result.res.Enlace}\"}`,
+                    "FechaRadicacion": `${fecha.getFullYear()}-${fecha.getMonth()}-${fecha.getDate()}`,
+                    "Activo": true
+
+                  }
                   //Si el documento se sube se realiza la creacion de la solicitud
-                  this.sgaDerechoPecunarioMidService
-                    .post('derechos-pecuniarios/solicitudes', data)
+                  this.solicitudesService
+                    .post('/solicitud', solicitud)
                     .subscribe(
                       (response: any) => {
-                        if (response.Status === '200') {
+                        if (response.Status === '201') {
                           this.loadInfoRecibos();
                           this.popUpManager.showSuccessAlert(
                             this.translate.instant(
@@ -672,9 +681,6 @@ export class GeneracionRecibosDerechosPecuniarios {
         this.translate.instant('derechos_pecuniarios.adjuntar_pago'),
         this.translate.instant('derechos_pecuniarios.pago_ya_adjuntado')
       );
-    }
-    if (1 == 1) {
-
     }
   }
 
