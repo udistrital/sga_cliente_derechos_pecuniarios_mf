@@ -29,6 +29,7 @@ export class ConsultarSolicitudesDerechosPecuniarios {
   solicitudData: any = null;
   userResponse: any;
 
+  info_persona_id: number;
   InfoDocumentos: any;
   arr_proyecto: InstitucionEnfasis[] = [];
   proyectos = [];
@@ -110,6 +111,8 @@ export class ConsultarSolicitudesDerechosPecuniarios {
     this.userService.getUser().subscribe((user) => {
       this.userResponse = user;
     });
+
+    this.info_persona_id = await this.userService.getPersonaId();
 
     this.userService
       .esAutorizado([
@@ -229,7 +232,7 @@ export class ConsultarSolicitudesDerechosPecuniarios {
           )
           .format('YYYY-MM-DD HH:mm:ss'),
         Observacion: this.formGestion.controls['observacion'].value,
-        TerceroResponasble: { Id: this.userResponse.Id },
+        TerceroResponasble: { Id: this.info_persona_id },
       };
 
       this.sgaDerechoPecunarioMidService

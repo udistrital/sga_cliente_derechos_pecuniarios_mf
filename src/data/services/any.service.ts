@@ -20,7 +20,17 @@ export class AnyService {
   }
 
   get(path, endpoint) {
-    return this.http.get(path + endpoint, httpOptions).pipe(
+    const acces_token = window.localStorage.getItem('access_token');
+    let hOptions = httpOptions;
+    if (acces_token !== null) {
+      hOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${acces_token}`,
+        }),
+      }
+    }
+    return this.http.get(path + endpoint, hOptions).pipe(
       catchError(this.handleError),
     );
   }
