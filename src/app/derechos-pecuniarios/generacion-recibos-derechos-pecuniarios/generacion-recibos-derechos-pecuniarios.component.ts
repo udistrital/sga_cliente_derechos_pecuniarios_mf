@@ -593,7 +593,7 @@ export class GeneracionRecibosDerechosPecuniarios {
 
   async solicitar(data: any) {
     //Se espera la subida del comprobante
-    if (data.Estado === 'Pago') {
+    if (data.Estado === 'Pendiente pago') {
       Swal.fire({
         title: 'Adjunte recibo',
         input: 'file',
@@ -627,8 +627,10 @@ export class GeneracionRecibosDerechosPecuniarios {
               .then((result: any) => {
                 if (result != null) {
 
+                  data.comprobanteRecibo = result.res
+                  data.SolicitanteId = this.info_persona_id
                   const fecha = new Date()
-                  const solicitud = {
+                  /*const solicitud = {
                     "EstadoTipoSolicitudId" : {
                       "Id": 41
                     },
@@ -636,13 +638,13 @@ export class GeneracionRecibosDerechosPecuniarios {
                     "FechaRadicacion": `${fecha.getFullYear()}-${fecha.getMonth()}-${fecha.getDate()}`,
                     "Activo": true
 
-                  }
+                  }*/
                   //Si el documento se sube se realiza la creacion de la solicitud
-                  this.solicitudesService
-                    .post('/solicitud', solicitud)
+                  this.sgaDerechoPecunarioMidService
+                    .post('derechos-pecuniarios/solicitudes', data)
                     .subscribe(
                       (response: any) => {
-                        if (response.Status === '201') {
+                        if (response.Status === '200') {
                           this.loadInfoRecibos();
                           this.popUpManager.showSuccessAlert(
                             this.translate.instant(
