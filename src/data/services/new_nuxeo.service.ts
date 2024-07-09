@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
-import { HttpEventType } from '@angular/common/http';
+import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { AnyService } from './any.service';
 import { DocumentoService } from './documento.service';
 import { Documento } from '../models/documento';
@@ -34,8 +34,8 @@ export class NewNuxeoService {
         "text/javascript": ".js",
         "application/json": ".json",
         "application/xml": ".xml"
-      };
-    
+    };
+
     // ? list from: https://www.garykessler.net/library/file_sigs.html
     private fileSignatures = {
         "image/jpeg": ["FFD8", "FFD8FF", "464946", "696600"],
@@ -53,7 +53,7 @@ export class NewNuxeoService {
         "application/vnd.openxmlformats-officedocument.presentationml.presentation": ["504B0304", "504B030414000600"],
         "none": []
         // Text,HTML,CSS,JavaScript,JSON,XML files don't have a unique signature
-      };
+    };
 
     constructor(
         private anyService: AnyService,
@@ -113,11 +113,11 @@ export class NewNuxeoService {
     getManyFiles(query: string) {
         const documentsSubject = new Subject<any>();
         const documents$ = documentsSubject.asObservable();
-        this.anyService.getp(environment.NUXEO_SERVICE, '/document'+query).subscribe(
+        this.anyService.getp(environment.NUXEO_SERVICE, '/document' + query).subscribe(
             async (response: any) => {
                 if (response.type === HttpEventType.DownloadProgress) {
                     const downloadProgress = 100 * response.loaded / response.total;
-                    documentsSubject.next({"downloadProgress": downloadProgress});
+                    documentsSubject.next({ "downloadProgress": downloadProgress });
                 }
                 if (response.type === HttpEventType.Response) {
                     let listaDocsRaw = <Array<any>>response.body.Data;
@@ -150,7 +150,7 @@ export class NewNuxeoService {
         const doc = this.documentsList.find(doc => doc.Id === id);
         if (doc != undefined) {
             setTimeout(() => {
-                documentsSubject.next({"Id": doc.Id, "nombre": doc.Nombre, "url": doc.Url, "type": doc.TipoArchivo});
+                documentsSubject.next({ "Id": doc.Id, "nombre": doc.Nombre, "url": doc.Url, "type": doc.TipoArchivo });
             }, 1);
         } else {
             documentsSubject.error("Document not found");
@@ -185,6 +185,33 @@ export class NewNuxeoService {
         return documents$;
     }
 
+    async UploadFile(fileToUpload) {
+
+        return new Promise(async (resolve, reject) => {
+            const sendFileData = [{
+                IdTipoDocumento: fileToUpload.IdDocumento,
+                nombre: fileToUpload.nombre.replace(/[\.]/g),
+                metadatos: fileToUpload.metadatos ? fileToUpload.metadatos : {},
+                descripcion: fileToUpload.descripcion ? fileToUpload.descripcion : "",
+                file: await this.fileToBase64(fileToUpload.file)
+            }]
+    
+            this.anyService.post(environment.NUXEO_SERVICE, '/document/uploadAnyFormat', sendFileData)
+                .subscribe((data: any) => {
+                    if (data?.Status == "200" && data?.res.Id != null) {
+                        console.log('Entra al true')
+                        resolve(data)
+                    } else {
+                        resolve(null)
+                    }
+                },
+                    (error: HttpErrorResponse) => {
+                        reject(new Error('Error al subir el archivo'))
+                    })            
+        })
+
+    }
+
     uploadFilesElectronicSign(files: Array<any>) {
         const documentsSubject = new Subject<any[]>();
         const documents$ = documentsSubject.asObservable();
@@ -200,13 +227,13 @@ export class NewNuxeoService {
                 file: file.base64 ? file.base64 : await this.fileToBase64(file.file),
                 firmantes: file.firmantes ? file.firmantes : [],
                 representantes: file.representantes ? file.representantes : []
-              }];
-              
+            }];
+
             this.anyService.post(environment.NUXEO_SERVICE, '/document/firma_electronica', sendFileDataandSigners)
                 .subscribe((dataResponse) => {
                     documentos.push(dataResponse);
                     if (documentos.length === files.length) {
-                    documentsSubject.next(documentos);
+                        documentsSubject.next(documentos);
                     }
                 }, (error) => {
                     documentsSubject.error(error);
@@ -223,18 +250,20 @@ export class NewNuxeoService {
         let i = 0;
         files.map((file, index) => {
             this.documentService.get('documento/' + file.Id)
-            .subscribe((doc) => {
-                this.anyService.get(environment.NUXEO_SERVICE, '/document/' + doc.Enlace)
-                .subscribe(async (f: any) => {
-                    const url = await this.getUrlFile(f.file, file.ContentType ? file.ContentType : f['file:content']['mime-type'])
-                    documentos[index] = { ...documentos[index], ...{ url: url }, ...{ Documento: this.sanitization.bypassSecurityTrustUrl(url) },
-                                          ...{ Nombre: doc.Nombre }, ...{ Metadatos: doc.Metadatos } }           
-                    i+=1;
-                    if(i === files.length){
-                        documentsSubject.next(documentos);
-                    }
+                .subscribe((doc) => {
+                    this.anyService.get(environment.NUXEO_SERVICE, '/document/' + doc.Enlace)
+                        .subscribe(async (f: any) => {
+                            const url = await this.getUrlFile(f.file, file.ContentType ? file.ContentType : f['file:content']['mime-type'])
+                            documentos[index] = {
+                                ...documentos[index], ...{ url: url }, ...{ Documento: this.sanitization.bypassSecurityTrustUrl(url) },
+                                ...{ Nombre: doc.Nombre }, ...{ Metadatos: doc.Metadatos }
+                            }
+                            i += 1;
+                            if (i === files.length) {
+                                documentsSubject.next(documentos);
+                            }
+                        })
                 })
-            })
         });
         return documents$;
     }
@@ -270,7 +299,7 @@ export class NewNuxeoService {
     deleteByIdDoc(Id, relacion) {
         const documentsSubject = new Subject<any>();
         const documents$ = documentsSubject.asObservable();
-        this.documentService.get('documento/'+Id).subscribe((doc: Documento) => {
+        this.documentService.get('documento/' + Id).subscribe((doc: Documento) => {
             doc.Activo = false;
             doc.Descripcion = "id_relacionado: " + relacion;
             this.documentService.put('documento/', doc).subscribe((doc: Documento) => {

@@ -29,7 +29,7 @@
         "adjuntar": "Adjuntar",
         "info_estado": "Estado de inscripción",
         "cerrar_visualizador": "Cerrar visualizador",
-        "click_aqui": "Click aquí",
+        "click_aqui": "Clic aquí",
         "error_practicas_academicas": "No fue posible registrar la práctica académica"
     },
     "ERROR": {
@@ -46,6 +46,7 @@
         "rol_insuficiente": "El usuario no cuenta con los permisos suficientes para usar el sistema.",
         "0": "El servicio solicitado no se encuentra disponible",
         "titulo_generico": "¡Disculpe, algo ha salido mal!",
+        "error_previsualizar_doc": "No fue posible previsualizar el documento",
         "undefined": "Error no determinado"
     },
     "derechos_pecuniarios": {
@@ -78,7 +79,7 @@
         "no_conceptos_valores": "No hay conceptos registrados para hacer la asignación de valores para los derechos pecuniarios.",
         "costo": "Costo",
         "agregar_concepto": "Agregar Concepto",
-        "error_codigo": "Por favor ingrese el codigo del concepto",
+        "error_codigo": "Por favor ingrese el código del concepto",
         "error_factor": "Por favor indique el factor del concepto",
         "error_nombre": "Por favor agregue el nombre del concepto",
         "confirmar_concepto": "¿Está seguro de agregar este concepto a los derechos pecuniarios?",
@@ -90,7 +91,7 @@
         "no_salario": "No hay salario registrado para esta vigencia",
         "inactivo": "El concepto seleccionado se encuentra ahora inactivo.",
         "actualizado": "El concepto ha sido correctamente actualizado",
-        "confirmar_guardar": "¿Está seguro que desea guardar estos valores de derechos pecuniarios?",
+        "confirmar_guardar": "¿Está seguro de que desea guardar estos valores de derechos pecuniarios?",
         "tooltip_eliminar": "Eliminar derecho pecuniario",
         "tooltip_crear": "Crear derecho pecuniario",
         "tooltip_editar": "Editar derecho pecuniario",

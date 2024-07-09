@@ -43,7 +43,8 @@
         "rol_insuficiente_titulo": "The user does not have permissions",
         "rol_insuficiente": "The user does not have sufficient permissions to use the system .",
         "0": "Service not available",
-        "titulo_generico": "Sorry, something has gone wrong!"
+        "titulo_generico": "Sorry, something has gone wrong!",
+        "error_previsualizar_doc": "It was not possible to preview the document"
     },
     "derechos_pecuniarios": {
         "titulo": "Financial entitlements",
