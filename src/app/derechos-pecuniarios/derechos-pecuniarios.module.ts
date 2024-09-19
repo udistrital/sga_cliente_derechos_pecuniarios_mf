@@ -51,6 +51,7 @@ import { GeneracionRecibosDerechosPecuniarios } from './generacion-recibos-derec
 import { DocumentoService } from 'src/data/services/documento.service';
 import { NewNuxeoService } from 'src/data/services/new_nuxeo.service';
 import { ConsultarSolicitudesDerechosPecuniarios } from './consultar-solicitudes/consultar-solicitudes.component';
+import { AuthGuard } from 'src/_guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { ConsultarSolicitudesDerechosPecuniarios } from './consultar-solicitudes
     ParametrosService,
     NewNuxeoService,
     DocumentoService,
+    AuthGuard,
     {
       provide: MatPaginatorIntl,
       useClass: CustomMatPaginatorIntl

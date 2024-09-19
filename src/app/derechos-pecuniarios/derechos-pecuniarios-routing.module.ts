@@ -7,7 +7,7 @@ import { CopiarConceptosComponent } from './copiar-conceptos/copiar-conceptos.co
 import { DefinirConceptosComponent } from './definir-conceptos/definir-conceptos.component';
 import { DialogoConceptosComponent } from './dialogo-conceptos/dialogo-conceptos.component';
 import { ListDerechosPecuniariosComponent } from './list-derechos-pecuniarios/list-derechos-pecuniarios.component';
-import { AuthGuard } from '../_guards/auth.guard';
+import { AuthGuard } from 'src/_guards/auth.guard';
 import { GeneracionRecibosDerechosPecuniarios } from './generacion-recibos-derechos-pecuniarios/generacion-recibos-derechos-pecuniarios.component';
 import { ConsultarSolicitudesDerechosPecuniarios } from './consultar-solicitudes/consultar-solicitudes.component';
 
@@ -17,31 +17,38 @@ const routes: Routes = [{
     children: [
         {
             path: 'conceptos',
+            canActivate: [AuthGuard],
             component: ConsultarConceptosComponent,
         },
         {
             path: 'conceptos/definir',
+            canActivate: [AuthGuard],
             component: DefinirConceptosComponent,
         },
         {
             path: 'crud-derechos-pecuniarios',
+            canActivate: [AuthGuard],
             component: CrudDerechosPecuniariosComponent,
         },
         {
             path: 'copiar-conceptos',
+            canActivate: [AuthGuard],
             component: CopiarConceptosComponent,
         },
         
         {
             path: 'lista',
+            canActivate: [AuthGuard],
             component: ListDerechosPecuniariosComponent,
         },
         {
             path: 'generar-recibo',
+            canActivate: [AuthGuard],
             component: GeneracionRecibosDerechosPecuniarios,
         },
         {
             path: 'solicitudes',
+            canActivate: [AuthGuard],
             component: ConsultarSolicitudesDerechosPecuniarios,
         }
     ],
