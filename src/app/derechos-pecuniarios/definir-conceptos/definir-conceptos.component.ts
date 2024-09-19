@@ -99,7 +99,7 @@ export class DefinirConceptosComponent implements OnInit, OnChanges {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }, 200);
-    this.mostrarTabla = datosCargados.length > 0;
+    this.mostrarTabla = true;
   }
 
   calcularValores() {
