@@ -21,14 +21,18 @@ const routes: Routes = [{
             component: ConsultarConceptosComponent,
         },
         {
+            // Menu que permite definir los conceptos según sea copiando o uno por uno
             path: 'conceptos/definir',
             canActivate: [AuthGuard],
-            component: DefinirConceptosComponent,
+            // component: DefinirConceptosComponent,
+            component: CrudDerechosPecuniariosComponent,
         },
         {
+            // define conceptos uno po uno
             path: 'crud-derechos-pecuniarios',
             canActivate: [AuthGuard],
-            component: CrudDerechosPecuniariosComponent,
+            // component: CrudDerechosPecuniariosComponent,
+            component: DefinirConceptosComponent,
         },
         {
             path: 'copiar-conceptos',
