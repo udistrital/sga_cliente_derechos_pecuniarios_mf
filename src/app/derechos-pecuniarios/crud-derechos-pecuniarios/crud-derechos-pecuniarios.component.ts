@@ -11,11 +11,11 @@ export class CrudDerechosPecuniariosComponent {
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   copiarDerechos() {
-    this.router.navigate(['../copiar-conceptos'], {relativeTo: this.route});
+    this.router.navigate(['../../copiar-conceptos'], {relativeTo: this.route});
   }
 
   definirDerechos() {
-    this.router.navigate(['../definir-conceptos'], {relativeTo: this.route});
+    this.router.navigate(['../../crud-derechos-pecuniarios'], {relativeTo: this.route});
   }
 
 }
